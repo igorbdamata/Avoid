@@ -1,0 +1,30 @@
+5 HOME
+10 LET HEIGHT = 24 : LET WIDTH = 40
+13 LET DX =0 : LET XY = 0
+15 LET X = WIDTH / 2 : LET Y = HEIGHT /2
+
+1 REM "Main"
+20 GOSUB 1000 : REM "Input"
+30 GOSUB 2000 : REM "Update position"
+40 HOME
+50 HTAB X : VTAB Y
+60 PRINT "P"
+70 GOTO 20
+
+1 REM "Input"
+1000  get g$
+1010 if g$ = "D" or g$ = "d" then DX= 1 : GOTO 1030
+1020 if g$ = "A" or g$ = "a" then DX= -1 : GOTO 1030
+1025 DX = 0
+1030 if g$ = "W" or g$ = "w" then DY =-1 : : GOTO 1070
+1040 if g$ = "S"or g$ = "s" then DY= 1 : : GOTO 1070
+1050 DY= 0
+1070 return 
+
+1 REM "Update position"
+2000 X = X + DX : Y = Y + DY
+2010 IF X > WIDTH THEN X = WIDTH : GOTO 2030
+2020 IF X < 1 THEN X=1 
+2030 IF Y>HEIGHT THEN  Y=HEIGHT :GOTO 2050 
+2040 IF Y<1THEN Y=1
+2050 RETURN
