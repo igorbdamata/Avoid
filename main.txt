@@ -28,7 +28,7 @@
 95 SCORE = SCORE +1
 96 HTAB 1 : VTAB 1
 97 print "Score: " ; SCORE
-98 if score - lastscore >= 100 and currentEnemiesCount<enemiescount then lastscore = score : currentEnemiesCount = currentEnemiesCount +1
+98 if score - lastscore >= 100 and currentEnemiesCount<enemiescount then lastscore = score : currentEnemiesCount = currentEnemiesCount +1 : soundLen=1 : gosub 8000 
 100 GOTO 20
 
 1 REM "Input"
@@ -73,7 +73,8 @@
 5060 EY(N) = H
 5070 RETURN
 
-6010 home
+6010 home 
+6013 soundLen = 300 : gosub 8000
 6015 for Y = 1 to H/2
 6040 PRINT "########################################"
 6050 for n = 1 to 500 : NEXT N
@@ -101,7 +102,17 @@
 6120 PRINT "#                  #"
 6123 for n =1 to 500 : next n
 6125 CALL 64780 : REM Wait for key press
+
 6130  CURRENTENEMIESCOUNT= 1 : gosub 7000 
 6140 DY =0 :  DX = 0 : PX = W / 2 : PY = H /2
-6150 SCORE = 0
+6150 SCORE = 0 : LASTSCORE =0
 6160 goto 20
+
+7000 FOR N = 1 TO ENEMIESCOUNT 
+7010 gosub 5000 : NEXT N
+7011 soundLen = 1 : gosub 8000
+7020 return
+
+1 Rem Play beep
+8000 for n = 1 to soundLen :  print chr$(7) : next n
+8010 return
