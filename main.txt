@@ -1,8 +1,8 @@
 1 REM "An enemy will come from somewhere on the screen with a random direction. You have to avoid it"
 5 HOME
 10 LET H = 24 : LET W = 40
-11 LET ENEMIESCOUNT = 10
-12 LET CURRENTENEMIESCOUNT= 10
+11 LET ENEMIESCOUNT = 15
+12 LET CURRENTENEMIESCOUNT= 15
 13 LET DY =0 : LET DX = 0
 15 LET PX = W / 2 : LET PY = H /2
 16 DIM EX(ENEMIESCOUNT)  : DIM EY(ENEMIESCOUNT) 
@@ -18,6 +18,7 @@
 50 GOSUB 3000
 55 FOR N = 1 TO CURRENTENEMIESCOUNT
 60 HTAB EX(N) : VTAB EY(N)
+65 IF EX(N) = PX AND EY(N) = PY THEN GOTO 6010
 70 PRINT "E"
 75 NEXT N
 80 HTAB PX : VTAB PY
@@ -68,3 +69,30 @@
 5056 IF INT(RND(1)*2) >= 1 THEN EY(N) = 1: GOTO 5070
 5060 EY(N) = H
 5070 RETURN
+
+6010 home
+6015 for Y = 1 to H/2
+6040 PRINT "########################################"
+6050 for n = 1 to 500 : NEXT N
+6060 NEXT Y
+
+6065 HTAB W/2-11 : VTAB H/2
+6070 PRINT "#      GAME OVER!      #"
+6071 HTAB W/2-11 : VTAB H/2+2
+6072 PRINT "#                      #"
+6073 HTAB W/2-11 : VTAB H/2+1
+6074 PRINT "#                      #"
+6075 HTAB W/2-11 : VTAB H/2-1
+6076 PRINT "#                      #"
+6077 HTAB W/2-11 : VTAB H/2-2
+6078 PRINT "#                      #"
+
+6095 HTAB W/2-9 : VTAB H/2+7
+6100 PRINT "#  Press any key!  #"
+6105 HTAB W/2-9 : VTAB H/2+8
+6110 PRINT "#                  #"
+6115 HTAB W/2-9 : VTAB H/2+6
+6120 PRINT "#                  #"
+6125 get g$
+6130 goto 20
+
