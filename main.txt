@@ -2,12 +2,13 @@
 5 HOME
 10 LET H = 24 : LET W = 40
 11 LET ENEMIESCOUNT = 5
-12 LET CURRENTENEMIESCOUNT= 5
+12 LET CURRENTENEMIESCOUNT= 1
 13 LET DY =0 : LET DX = 0
 15 LET PX = W / 2 : LET PY = H /2
 16 DIM EX(ENEMIESCOUNT)  : DIM EY(ENEMIESCOUNT) 
 17 DIM AX(ENEMIESCOUNT)  : DIM AY (ENEMIESCOUNT)
 18 gosub 7000
+19 LET SCORE = 0 : LET LASTSCORE = 0
 
 1 REM "Main"
 20 for n = 1 to 300 - CURRENTENEMIESCOUNT : next n
@@ -18,12 +19,16 @@
 55 FOR N = 1 TO CURRENTENEMIESCOUNT
 60 IF EX(N)+1 >= PX  and EX(N)-1 <= PX and EY(N)+1 >= PY  and EY(N)-1 <= PY THEN GOTO 6010
 63 for J = -1 to 1
-65 HTAB EX(N) : VTAB EY(N)+j
+65 HTAB EX(N)-1 : VTAB EY(N)+j
 70 PRINT "EEE"
 71 next j
 75 NEXT N
 80 HTAB PX : VTAB PY
 90 PRINT "P"
+95 SCORE = SCORE +1
+96 HTAB 1 : VTAB 1
+97 print "Score: " ; SCORE
+98 if score - lastscore >= 100 and currentEnemiesCount<enemiescount then lastscore = score : currentEnemiesCount = currentEnemiesCount +1
 100 GOTO 20
 
 1 REM "Input"
@@ -50,7 +55,7 @@
 1 REM "Update ENEMY position"
 3000  FOR N = 1 TO CURRENTENEMIESCOUNT
 3005 EX(N) = EX(N) + AX(N) : EY(N) = EY(N) + AY(N)
-3010 IF EX(N)+1 >= W THEN EX(N) = W-2 : AX(N) = -1 : GOTO 3030
+3010 IF EX(N)+1 >= W THEN EX(N) = W-1 : AX(N) = -1 : GOTO 3030
 3020 IF EX(N)-1 <= 1 THEN EX(N) = 1+1 : AX(N) =  1
 3030 IF EY(N)+1 >= H THEN EY(N) = H-1 : AY(N) = -1 : GOTO 3050 
 3040 IF EY(N)-1 <= 1 THEN EY(N) = 1+1 : AY(N) =  1
@@ -60,25 +65,23 @@
 
 1 REM "Get random direction for enemy"
 5000 IF INT(RND(1)*2) >= 1 THEN AX(N)=1 : GOTO 5030
-5010 IF INT(RND(1)*2) >= 1 THEN AX(N)=-1  : GOTO 5030
-5020 IF INT(RND(1)*2) >= 1 THEN AX(N)=0  : GOTO 5030
-5030 IF INT(RND(1)*2) >= 1 THEN AY(N)=1 : GOTO 5054
-5040 IF INT(RND(1)*2) >= 1 THEN AY(N)=-1 : GOTO 5054
-5050 IF INT(RND(1)*2) >= 1 THEN AY(N)=0 : GOTO 5054
-5054 IF AX(N) = 0 AND AY(N) = 0 THEN GOTO 5000
+5010 AX(N)=-1 
+5030 IF INT(RND(1)*2) >= 1 THEN AY(N)=1 : GOTO 5055
+5040 AY(N)=-1 
 5055 EX(N) = INT(RND(1)*W) 
 5056 IF INT(RND(1)*2) >= 1 THEN EY(N) = 1: GOTO 5070
 5060 EY(N) = H
 5070 RETURN
 
 6010 home
-6011  CURRENTENEMIESCOUNT= 1 : gosub 7000
-6012 DY =0 :  DX = 0 : PX = W / 2 : PY = H /2
 6015 for Y = 1 to H/2
 6040 PRINT "########################################"
 6050 for n = 1 to 500 : NEXT N
 6060 NEXT Y
 
+6061 htab 1 : vtab 1 : print "                                        "
+6062  htab 1 : vtab 1 :print "Score: ";SCORE ; "   "
+6063  htab 1 : vtab 2:print "                                        "
 6065 HTAB W/2-11 : VTAB H/2
 6070 PRINT "#      GAME OVER!      #"
 6071 HTAB W/2-11 : VTAB H/2+2
@@ -96,9 +99,9 @@
 6110 PRINT "#                  #"
 6115 HTAB W/2-9 : VTAB H/2+6
 6120 PRINT "#                  #"
-6125 get g$
-6130 goto 20
-
-7000 FOR N = 1 TO ENEMIESCOUNT 
-7010 gosub 5000 : NEXT N
-7020 return
+6123 for n =1 to 500 : next n
+6125 CALL 64780 : REM Wait for key press
+6130  CURRENTENEMIESCOUNT= 1 : gosub 7000 
+6140 DY =0 :  DX = 0 : PX = W / 2 : PY = H /2
+6150 SCORE = 0
+6160 goto 20
