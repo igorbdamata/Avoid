@@ -1,8 +1,8 @@
 1 REM "An enemy will come from somewhere on the screen with a random direction. You have to avoid it"
 5 HOME
 10 LET H = 24 : LET W = 40
-11 LET ENEMIESCOUNT = 15
-12 LET CURRENTENEMIESCOUNT= 15
+11 LET ENEMIESCOUNT = 5
+12 LET CURRENTENEMIESCOUNT= 5
 13 LET DY =0 : LET DX = 0
 15 LET PX = W / 2 : LET PY = H /2
 16 DIM EX(ENEMIESCOUNT)  : DIM EY(ENEMIESCOUNT) 
@@ -11,15 +11,17 @@
 19 gosub 5000 : NEXT N
 
 1 REM "Main"
-20 for n = 1 to 500 - CURRENTENEMIESCOUNT : next n
+20 for n = 1 to 300 - CURRENTENEMIESCOUNT : next n
+21 home
 25 GOSUB 1000 : REM "Input"
 30 GOSUB 2000 : REM "Update position"
-40 HOME
 50 GOSUB 3000
 55 FOR N = 1 TO CURRENTENEMIESCOUNT
-60 HTAB EX(N) : VTAB EY(N)
-65 IF EX(N) = PX AND EY(N) = PY THEN GOTO 6010
-70 PRINT "E"
+60 IF EX(N)+1 >= PX  and EX(N)-1 <= PX and EY(N)+1 >= PY  and EY(N)-1 <= PY THEN GOTO 6010
+63 for J = -1 to 1
+65 HTAB EX(N) : VTAB EY(N)+j
+70 PRINT "EEE"
+71 next j
 75 NEXT N
 80 HTAB PX : VTAB PY
 90 PRINT "P"
@@ -49,10 +51,10 @@
 1 REM "Update ENEMY position"
 3000  FOR N = 1 TO CURRENTENEMIESCOUNT
 3005 EX(N) = EX(N) + AX(N) : EY(N) = EY(N) + AY(N)
-3010 IF EX(N) >= W THEN EX(N) = W : AX(N) = -1 : GOTO 3030
-3020 IF EX(N) <= 1 THEN EX(N) = 1 : AX(N) =  1
-3030 IF EY(N) >= H THEN EY(N) = H : AY(N) = -1 : GOTO 3050 
-3040 IF EY(N) <= 1 THEN EY(N) = 1 : AY(N) =  1
+3010 IF EX(N)+1 >= W THEN EX(N) = W-1 : AX(N) = -1 : GOTO 3030
+3020 IF EX(N)-1 <= 1 THEN EX(N) = 1+1 : AX(N) =  1
+3030 IF EY(N)+1 >= H THEN EY(N) = H-1 : AY(N) = -1 : GOTO 3050 
+3040 IF EY(N)-1 <= 1 THEN EY(N) = 1+1 : AY(N) =  1
 3050 NEXT N
 3060 RETURN
 
@@ -95,4 +97,3 @@
 6120 PRINT "#                  #"
 6125 get g$
 6130 goto 20
-
