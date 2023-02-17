@@ -7,8 +7,7 @@
 15 LET PX = W / 2 : LET PY = H /2
 16 DIM EX(ENEMIESCOUNT)  : DIM EY(ENEMIESCOUNT) 
 17 DIM AX(ENEMIESCOUNT)  : DIM AY (ENEMIESCOUNT)
-18 FOR N = 1 TO CURRENTENEMIESCOUNT 
-19 gosub 5000 : NEXT N
+18 gosub 7000
 
 1 REM "Main"
 20 for n = 1 to 300 - CURRENTENEMIESCOUNT : next n
@@ -51,7 +50,7 @@
 1 REM "Update ENEMY position"
 3000  FOR N = 1 TO CURRENTENEMIESCOUNT
 3005 EX(N) = EX(N) + AX(N) : EY(N) = EY(N) + AY(N)
-3010 IF EX(N)+1 >= W THEN EX(N) = W-1 : AX(N) = -1 : GOTO 3030
+3010 IF EX(N)+1 >= W THEN EX(N) = W-2 : AX(N) = -1 : GOTO 3030
 3020 IF EX(N)-1 <= 1 THEN EX(N) = 1+1 : AX(N) =  1
 3030 IF EY(N)+1 >= H THEN EY(N) = H-1 : AY(N) = -1 : GOTO 3050 
 3040 IF EY(N)-1 <= 1 THEN EY(N) = 1+1 : AY(N) =  1
@@ -73,6 +72,8 @@
 5070 RETURN
 
 6010 home
+6011  CURRENTENEMIESCOUNT= 1 : gosub 7000
+6012 DY =0 :  DX = 0 : PX = W / 2 : PY = H /2
 6015 for Y = 1 to H/2
 6040 PRINT "########################################"
 6050 for n = 1 to 500 : NEXT N
@@ -97,3 +98,7 @@
 6120 PRINT "#                  #"
 6125 get g$
 6130 goto 20
+
+7000 FOR N = 1 TO ENEMIESCOUNT 
+7010 gosub 5000 : NEXT N
+7020 return
