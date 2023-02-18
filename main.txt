@@ -1,14 +1,17 @@
 1 REM "An enemy will come from somewhere on the screen with a random direction. You have to avoid it"
-5 HOME
-10 LET H = 24 : LET W = 40
-11 LET ENEMIESCOUNT = 5
-12 LET CURRENTENEMIESCOUNT= 1
-13 LET DY =0 : LET DX = 0
-15 LET PX = W / 2 : LET PY = H /2
-16 DIM EX(ENEMIESCOUNT)  : DIM EY(ENEMIESCOUNT) 
-17 DIM AX(ENEMIESCOUNT)  : DIM AY (ENEMIESCOUNT)
-18 gosub 7000
-19 LET SCORE = 0 : LET LASTSCORE = 0
+4 HOME
+5 let pw = 0 : let pa = 0 : let ps = 0 : let pd =0
+6 let key = 0
+7LET H = 24 : LET W = 40
+8 LET ENEMIESCOUNT = 5
+9 LET CURRENTENEMIESCOUNT= 1
+10 LET DY =0 : LET DX = 0
+11 LET PX = W / 2 : LET PY = H /2
+12 DIM EX(ENEMIESCOUNT)  : DIM EY(ENEMIESCOUNT) 
+13 DIM AX(ENEMIESCOUNT)  : DIM AY (ENEMIESCOUNT)
+14 gosub 7000
+15 LET SCORE = 0 : LET LASTSCORE = 0
+16 gosub 9000 : REM Title screen
 
 1 REM "Main"
 20 for n = 1 to 300 - CURRENTENEMIESCOUNT : next n
@@ -32,25 +35,27 @@
 100 GOTO 20
 
 1 REM "Input"
-1000 if peek (49152) <= 127 THEN GOTO 1080
-1005 get g$
-1010 if g$ = "D" or g$ = "d" then DX= 1 : GOTO 1030
-1020 if g$ = "A" or g$ = "a" then DX= -1 : GOTO 1030
-1025 DX = 0
-1030 if g$ = "W" or g$ = "w" then DY =-1 : : GOTO 1070
-1040 if g$ = "S"or g$ = "s" then DY= 1 : : GOTO 1070
-1050 DY= 0
-1070 return 
-1080 DX = 0: DY = 0
-1090 RETURN
+1000 key = peek(49168)
+1004 pa = 0 : ps = 0: pd = 0: pw = 0
+1005 if key = 193 then pa = 1 : goto 1050
+1010 if key = 196 then pd = 1 : goto 1050
+1020 if key = 211 then ps = 1 : goto 1050
+1030 if key = 215 then pw = 1: goto 1050
+1050 return
 
-1 REM "Update position"
-2000 PX = PX + DX : PY = PY + DY
-2010 IF PX > W THEN PX = W : GOTO 2030
-2020 IF PX < 1 THEN PX=1 
-2030 IF PY>H THEN  PY=H :GOTO 2050 
-2040 IF PY<1THEN PY=1
-2050 RETURN
+1 REM Update position and direction 
+2000 if pa = 1 then dx = -1 : goto 2020
+2010 if pd = 1 then dx = 1 : goto 2020
+2015 dx=0
+2020 if pw = 1 then dy = -1 : goto 2040
+2030 if ps = 1 then dy = 1 : goto 2040
+2035 dy =0
+2040 PX = PX + DX : PY = PY + DY
+2050 IF PX > W THEN PX = W : GOTO 2030
+2060 IF PX < 1 THEN PX=1 
+2070 IF PY>H THEN  PY=H :GOTO 2050 
+2080 IF PY<1THEN PY=1
+2090 RETURN
 
 1 REM "Update ENEMY position"
 3000  FOR N = 1 TO CURRENTENEMIESCOUNT
@@ -116,3 +121,39 @@
 1 Rem Play beep
 8000 for n = 1 to soundLen :  print chr$(7) : next n
 8010 return
+
+9000 print "
+9010 home 
+9013 soundLen = 300 : gosub 8000
+9015 for Y = 1 to H/2
+9040 PRINT "########################################"
+9050 for n = 1 to 500 : NEXT N
+9060 NEXT Y
+9065 HTAB W/2-11 : VTAB H/2
+9070 PRINT "#        Avoid!        #"
+9071 HTAB W/2-11 : VTAB H/2+2
+9072 PRINT "#                      #"
+9073 HTAB W/2-11 : VTAB H/2+1
+9074 PRINT "#                      #"
+9075 HTAB W/2-11 : VTAB H/2-1
+9076 PRINT "#                      #"
+9077 HTAB W/2-11 : VTAB H/2-2
+9078 PRINT "#                      #"
+
+9095 HTAB W/2-9 : VTAB H/2+7
+9100 PRINT "#  Press any key!  #"
+9105 HTAB W/2-9 : VTAB H/2+8
+9110 PRINT "#                  #"
+9115 HTAB W/2-9 : VTAB H/2+6
+9120 PRINT "#                  #"
+
+9130 HTAB 1 : vtab 2
+9140 PRINT "# Keys: WASD to move #"
+9150 HTAB 1 : vtab 1
+9160 PRINT "#                    #"
+9175 HTAB 1 : vtab 3
+9180 PRINT "#                    #"
+9193 for n =1 to 500 : next n
+9205 CALL 64780 : REM Wait for key press
+9210 soundLen = 1 : gosub 8000
+9220 return
