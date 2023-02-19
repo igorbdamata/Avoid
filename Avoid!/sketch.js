@@ -9,9 +9,9 @@ function setup() {
   let playerDiameter = 30;
   let playerSpeed = 3;
   let playerPosition = createVector(width / 2, height / 2);
-  player = new Player(playerPosition, playerDiameter, playerSpeed, createVector(width, height));
+  player = new Player(playerPosition, playerDiameter, playerSpeed, createVector(width, height),'#E6E9FE');
 
-  enemy = new Enemy(createVector(0, 0), playerDiameter * 2, playerSpeed, createVector(width, height), player);
+  enemy = new Enemy(createVector(0, 0), playerDiameter * 2, playerSpeed, createVector(width, height), player, '#FF7657');
 }
 
 function draw() {
