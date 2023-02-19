@@ -2,17 +2,23 @@ let width = 720;
 let height = 480;
 
 let player;
+let enemy;
 
 function setup() {
   createCanvas(width, height);
   let playerDiameter = 30;
   let playerSpeed = 3;
   let playerPosition = createVector(width / 2, height / 2);
-  player = new Player(playerPosition, playerSpeed, playerDiameter, createVector(width, height));
+  player = new Player(playerPosition, playerDiameter, playerSpeed, createVector(width, height));
+
+  enemy = new Enemy(createVector(0, 0), playerDiameter * 2, playerSpeed, createVector(width, height), player);
 }
 
 function draw() {
   background('#1E1F21');
+  enemy.update();
+  enemy.show();
+
   player.update();
   player.show();
 }
