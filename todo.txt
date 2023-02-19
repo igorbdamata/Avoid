@@ -1,0 +1,5 @@
+*High score
+*Improve renderization (print " " where is necessary instead of home) -> No blinking
+*Improve the framerate (maybe with the speed peek)
+*Fix the press any key on game over screen
+*Improve score # renderization (instead of erase, print just the enough #)

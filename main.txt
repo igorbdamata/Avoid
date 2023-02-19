@@ -30,8 +30,9 @@
 90 PRINT "P"
 95 SCORE = SCORE +1
 96 HTAB 1 : VTAB 1
-97 print "Score: " ; SCORE
-98 if score - lastscore >= 100 and currentEnemiesCount<enemiescount then lastscore = score : currentEnemiesCount = currentEnemiesCount +1 : soundLen=1 : gosub 8000 
+97 print "        ################################"
+98 HTAB 1 : VTAB 1:print "Score: " ; SCORE ; " "
+99 if score - lastscore >= 100 and currentEnemiesCount<enemiescount then lastscore = score : currentEnemiesCount = currentEnemiesCount +1 : soundLen=1 : gosub 8000 
 100 GOTO 20
 
 1 REM "Input"
@@ -44,17 +45,17 @@
 1050 return
 
 1 REM Update position and direction 
-2000 if pa = 1 then dx = -1 : goto 2020
-2010 if pd = 1 then dx = 1 : goto 2020
+2000 if pa = 1 then dx = -1 : goto 2040
+2010 if pd = 1 then dx = 1 : goto 2040
 2015 dx=0
 2020 if pw = 1 then dy = -1 : goto 2040
 2030 if ps = 1 then dy = 1 : goto 2040
 2035 dy =0
 2040 PX = PX + DX : PY = PY + DY
-2050 IF PX > W THEN PX = W : GOTO 2030
+2050 IF PX > W THEN PX = W : GOTO 2070
 2060 IF PX < 1 THEN PX=1 
-2070 IF PY>H THEN  PY=H :GOTO 2050 
-2080 IF PY<1THEN PY=1
+2070 IF PY>H THEN  PY=H :GOTO 2090 
+2080 IF PY<2THEN PY=2
 2090 RETURN
 
 1 REM "Update ENEMY position"
@@ -63,7 +64,7 @@
 3010 IF EX(N)+1 >= W THEN EX(N) = W-1 : AX(N) = -1 : GOTO 3030
 3020 IF EX(N)-1 <= 1 THEN EX(N) = 1+1 : AX(N) =  1
 3030 IF EY(N)+1 >= H THEN EY(N) = H-1 : AY(N) = -1 : GOTO 3050 
-3040 IF EY(N)-1 <= 1 THEN EY(N) = 1+1 : AY(N) =  1
+3040 IF EY(N)-1 <= 2 THEN EY(N) = 1+2 : AY(N) =  1
 3050 NEXT N
 3060 RETURN
 
