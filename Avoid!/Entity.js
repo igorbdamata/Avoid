@@ -38,11 +38,9 @@ class Entity {
     }
 
     _onHitVerticalBorder() {
-        throw error("'_OnHitVerticalBorder' is not implemented");
     }
 
     _onHitHorizontalBorder() {
-        throw error("'_OnHitHorizontalBorder' is not implemented");
     }
 
     update() {

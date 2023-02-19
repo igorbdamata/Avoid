@@ -3,9 +3,8 @@ let height = 480;
 
 let player;
 let enemy;
-
-function setup() {
-  createCanvas(width, height);
+function initGame()
+{
   let playerDiameter = 30;
   let playerSpeed = 3;
   let playerPosition = createVector(width / 2, height / 2);
@@ -13,6 +12,13 @@ function setup() {
 
   enemy = new Enemy(createVector(0, 0), playerDiameter * 2, playerSpeed, createVector(width, height), player, '#FF7657');
 }
+
+function setup() {
+  createCanvas(width, height);
+  initGame();
+}
+
+
 
 function draw() {
   if (!enemy.haveHitPlayer) {
@@ -45,8 +51,7 @@ function OnGameOver()
 }
 function RestartGame()
 {
-  enemy.haveHitPlayer=false;
-  enemy.position = createVector(0,0);
+  initGame();
 }
 function keyPressed() {
   if (enemy.haveHitPlayer) 
