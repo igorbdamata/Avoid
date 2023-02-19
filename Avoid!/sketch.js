@@ -2,15 +2,25 @@ let width = 720;
 let height = 480;
 
 let player;
-let enemy;
-function initGame()
-{
+let enemies = [];
+let maxEnemiesCount=5;
+
+function CreateEnemy() {
+  let posX = random(0, width);
+  let posY = random(0, 11) > 5 ? 0 : height;
+  let enemy = new Enemy(createVector(posX, posY), 60, 3, createVector(width, height), player, '#FF7657');
+  enemies.push(enemy);
+}
+function initGame() {
   let playerDiameter = 30;
   let playerSpeed = 3;
   let playerPosition = createVector(width / 2, height / 2);
   player = new Player(playerPosition, playerDiameter, playerSpeed, createVector(width, height), '#E6E9FE');
-
-  enemy = new Enemy(createVector(0, 0), playerDiameter * 2, playerSpeed, createVector(width, height), player, '#FF7657');
+  enemies = [];
+  for(let i =0; i< maxEnemiesCount; i++)
+  {
+    CreateEnemy();
+  }
 }
 
 function setup() {
@@ -18,44 +28,51 @@ function setup() {
   initGame();
 }
 
-
+function AnyEnemyHaveHitPlayer() {
+  for(let i =0; i< enemies.length; i++)
+  {
+    if(enemies[i].haveHitPlayer)
+    {
+      return true;
+    }
+  }
+  return false;
+}
 
 function draw() {
-  if (!enemy.haveHitPlayer) {
+  if (!AnyEnemyHaveHitPlayer()) {
     background('#1E1F21');
-    enemy.update();
-    enemy.show();
+    enemies.forEach(element => {
+      element.update(); 
+      element.show();
+    });
 
     player.update();
     player.show();
   }
-  else
-  {
+  else {
     OnGameOver();
   }
 }
 
-function OnGameOver()
-{
+function OnGameOver() {
   fill(color('#E6E9FE'));
   background('#992F0F');
   let size = 64;
   let textToDisplay = 'Game Over!';
   textSize(size);
-  text(textToDisplay, (width-textToDisplay.length/2*size)/2, height/2);
+  text(textToDisplay, (width - textToDisplay.length / 2 * size) / 2, height / 2);
 
-  size =32;
+  size = 32;
   textToDisplay = 'Press any key!';
   textSize(size);
-  text(textToDisplay, (width-textToDisplay.length/2*size)/2, height/2+100);
+  text(textToDisplay, (width - textToDisplay.length / 2 * size) / 2, height / 2 + 100);
 }
-function RestartGame()
-{
+function RestartGame() {
   initGame();
 }
 function keyPressed() {
-  if (enemy.haveHitPlayer) 
-  {
+  if (AnyEnemyHaveHitPlayer()) {
     RestartGame();
   }
 
@@ -86,6 +103,4 @@ function keyReleased() {
   else if (keyCode === RIGHT_ARROW && player.direction.x > 0) {
     player.direction.x = 0
   }
-
- 
 }
