@@ -28,26 +28,12 @@ class Enemy extends Entity {
         this.direction = createVector(0, 0);
     }
 
-    _OnHitLeftBorder()
+    _onHitHorizontalBorder()
     {
-        super._OnHitLeftBorder();
-        this.direction.x = +1;
+        this.direction.x *= -1;
     }
-    _OnHitRightBorder()
+    _onHitVerticalBorder()
     {
-        super._OnHitRightBorder();
-        this.direction.x = -1;
+        this.direction.y *= -1;
     }
-    _OnHitUpperBorder()
-    {
-        super._OnHitUpperBorder();
-        this.direction.y = +1;
-    }
-    _OnHitBottomBorder()
-    {
-        super._OnHitBottomBorder();
-        this.direction.y = -1;
-    }
-
-    
 }

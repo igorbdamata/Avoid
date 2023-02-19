@@ -10,46 +10,39 @@ class Entity {
 
         this.radius = diameter / 2;
     }
+
     get position() {
         return this._position;
     }
-
     set position(value) {
         this._position = value;
         this.#clampPosition();
     }
-
     #clampPosition() {
         if (this._position.y < 0 + this.radius) {
-            this._OnHitUpperBorder();
+            this._position = createVector(this._position.x, this.radius);
+            this._onHitVerticalBorder();
         }
         else if (this._position.y > this.canvasLimit.y - this.radius) {
-            this._OnHitBottomBorder();
+            this._position = createVector(this._position.x, this.canvasLimit.y - this.radius);
+            this._onHitVerticalBorder();
         }
         if (this._position.x < 0 + this.radius) {
-            this._OnHitLeftBorder();
+            this._position = createVector(this.radius, this._position.y);
+            this._onHitHorizontalBorder();
         }
         else if (this._position.x > this.canvasLimit.x - this.radius) {
-            this._OnHitRightBorder();
+            this._position = createVector(this.canvasLimit.x - this.radius, this._position.y);
+            this._onHitHorizontalBorder();
         }
     }
 
-    _OnHitLeftBorder() {
-        this._position = createVector(this.radius, this._position.y);
-
+    _onHitVerticalBorder() {
+        throw error("'_OnHitVerticalBorder' is not implemented");
     }
 
-    _OnHitRightBorder() {
-        this._position = createVector(this.canvasLimit.x - this.radius, this._position.y);
-    }
-
-    _OnHitUpperBorder() {
-        this._position = createVector(this._position.x, this.radius);
-
-    }
-
-    _OnHitBottomBorder() {
-        this._position = createVector(this._position.x, this.canvasLimit.y - this.radius);
+    _onHitHorizontalBorder() {
+        throw error("'_OnHitHorizontalBorder' is not implemented");
     }
 
     update() {
