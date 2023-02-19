@@ -5,6 +5,7 @@ class Enemy extends Entity {
         let direction = createVector(directionX, directionY);
         super(position, diameter, color, direction, speed,canvasLimit);
         this.player = player;
+        this.haveHitPlayer = false;
     }
 
     update() {
@@ -24,8 +25,7 @@ class Enemy extends Entity {
     }
 
     #onCollideWithPlayer() {
-        console.log('Is colliding!');
-        this.direction = createVector(0, 0);
+        this.haveHitPlayer = true;
     }
 
     _onHitHorizontalBorder()
