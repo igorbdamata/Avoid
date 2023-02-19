@@ -3,24 +3,27 @@ let height = 480;
 
 let player;
 let enemies = [];
-let maxEnemiesCount=5;
+let maxEnemiesLength =5;
+let currentScore = 0;
+let scoreOnLastSpawn = 0;
+let startGameTime;
 
 function CreateEnemy() {
   let posX = random(0, width);
   let posY = random(0, 11) > 5 ? 0 : height;
-  let enemy = new Enemy(createVector(posX, posY), 60, 3, createVector(width, height), player, '#FF7657');
+  let enemy = new Enemy(createVector(posX, posY), 60, 6, createVector(width, height), player, '#FF7657');
   enemies.push(enemy);
 }
 function initGame() {
+  startGameTime = performance.now();
   let playerDiameter = 30;
   let playerSpeed = 3;
   let playerPosition = createVector(width / 2, height / 2);
   player = new Player(playerPosition, playerDiameter, playerSpeed, createVector(width, height), '#E6E9FE');
+  scoreOnLastSpawn=0;
+  currentScore=0;
   enemies = [];
-  for(let i =0; i< maxEnemiesCount; i++)
-  {
-    CreateEnemy();
-  }
+  CreateEnemy();
 }
 
 function setup() {
@@ -49,6 +52,17 @@ function draw() {
 
     player.update();
     player.show();
+    currentScore = round((performance.now()-startGameTime)/100);
+    if(enemies.length<maxEnemiesLength && currentScore-scoreOnLastSpawn>=100)
+    {
+      scoreOnLastSpawn=currentScore;
+      CreateEnemy();
+    }
+    fill(color('#E6E9FE'));
+    let size = 30;
+    let textToDisplay = 'Score: ' + currentScore;
+    textSize(size);
+    text(textToDisplay, 20, size+20);
   }
   else {
     OnGameOver();
