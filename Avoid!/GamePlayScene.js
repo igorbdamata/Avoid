@@ -6,14 +6,13 @@ class GameplayScene extends Scene {
 
     this.startGameTime = performance.now();
     this.scoreOnLastSpawn = 0;
+    currentScore=0;
 
     this.enemies = [];
     this.SpawnEnemy();
   }
 
-  get scoreInterval() {
-    return currentScore - this.scoreOnLastSpawn;
-  }
+  
 
   update() {
     background(settings.general.gameplayBackgroundColor);
@@ -48,9 +47,12 @@ class GameplayScene extends Scene {
   get #isTimeToSpawnANewEnemy() {
     return this.scoreInterval >= settings.general.scoreIntervalToSpawnEnemies
   }
+  get scoreInterval() {
+    return currentScore - this.scoreOnLastSpawn;
+  }
 
   SpawnEnemy() {
-    this.scoreOnLastSpawn = this.currentScore;
+    this.scoreOnLastSpawn = currentScore;
 
     let posX = random(0, canvasSize.x);
     let posY = random(0, 11) > 5 ? 0 : canvasSize.y;
