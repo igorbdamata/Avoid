@@ -1,8 +1,4 @@
 class GameOverScene extends Scene {
-    init() {
-
-    }
-
     update() {
         background(settings.general.gameOverBackgroundColor);
 
@@ -15,5 +11,10 @@ class GameOverScene extends Scene {
         textToDisplay = 'Press any key!';
         textPosition = createVector((width - textToDisplay.length / 2 * size) / 2, height / 2 + 100);
         displayText('#E6E9FE', size, textToDisplay, textPosition)
+    }
+
+    onKeyPressed()
+    {
+        LoadScene("Gameplay");
     }
 }

@@ -1,4 +1,5 @@
-let currentScene = '';
+let currentSceneKey = '';
+let currentScene;
 let scenes = {};
 
 function addScene(sceneName, newScene) {
@@ -6,6 +7,7 @@ function addScene(sceneName, newScene) {
 }
 
 function LoadScene(scene) {
-    currentScene = scene;
-    scenes[currentScene].init();
-  }
+    currentSceneKey = scene;
+    currentScene = scenes[currentSceneKey];
+    currentScene.init();
+}

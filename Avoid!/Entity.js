@@ -7,7 +7,6 @@ class Entity {
         this.direction = direction;
         this.speed = speed;
         this.canvasSize = canvasSize;
-
         this.radius = diameter / 2;
     }
 
@@ -37,11 +36,9 @@ class Entity {
         }
     }
 
-    _onHitVerticalBorder() {
-    }
+    _onHitVerticalBorder() { }
 
-    _onHitHorizontalBorder() {
-    }
+    _onHitHorizontalBorder() { }
 
     update() {
         this.position = createVector(this.position.x + this.direction.x * this.speed, this.position.y + this.direction.y * this.speed);
