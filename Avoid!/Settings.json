@@ -17,6 +17,7 @@
         "canvasHeight" : 480,
         "gameplayBackgroundColor":"#1E1F21",
         "gameOverBackgroundColor":"#992F0F",
+        "titleScreenBackgroundColor":"#992F0F",
         "maxEnemiesLength": 5,
         "scoreIntervalToSpawnEnemies" : 100
     }

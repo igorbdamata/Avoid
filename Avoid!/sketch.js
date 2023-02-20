@@ -19,9 +19,10 @@ function preload() {
 function setup() {
   canvasSize = createVector(settings.general.canvasWidth, settings.general.canvasHeight);
   createCanvas(canvasSize.x, canvasSize.y);
-  addScene('GameOver', new GameOverScene());
+  addScene('TitleScreen', new TitleScreenScene());
   addScene('Gameplay', new GameplayScene());
-  LoadScene('Gameplay');
+  addScene('GameOver', new GameOverScene());
+  LoadScene('TitleScreen');
 }
 
 function draw() {
