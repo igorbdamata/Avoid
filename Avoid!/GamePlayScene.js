@@ -1,11 +1,14 @@
 class GameplayScene extends Scene {
 
   init() {
-    this.startGameTime = performance.now();
     let playerPosition = createVector(canvasSize.x / 2, canvasSize.y / 2);
     this.player = new Player(playerPosition, settings.player.diameter, settings.player.speed, canvasSize, settings.player.color);
+
+    this.startGameTime = performance.now();
+
     this.scoreOnLastSpawn = 0;
     this.currentScore = 0;
+
     this.enemies = [];
     this.CreateEnemy();
   }

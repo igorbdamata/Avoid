@@ -1,13 +1,14 @@
 let settings;
 let canvasSize;
 
-function preload() {
-  settings = loadJSON("Settings.json");
-}
 function displayText(color, size, textToDiplay, position) {
   fill(color);
   textSize(size);
   text(textToDiplay, position.x, position.y);
+}
+
+function preload() {
+  settings = loadJSON("Settings.json");
 }
 
 function setup() {
@@ -21,7 +22,6 @@ function setup() {
 function draw() {
   currentScene.update();
 }
-
 
 function keyPressed() {
   currentScene.onKeyPressed();

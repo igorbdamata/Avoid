@@ -1,6 +1,5 @@
 class Entity {
     constructor(position, diameter, color, direction, speed, canvasSize) {
-
         this._position = position;
         this.diameter = diameter;
         this.color = color;
@@ -15,33 +14,38 @@ class Entity {
     }
     set position(value) {
         this._position = value;
-        this.#clampPosition();
+        this.#constrainPositionInCanvas();
     }
-    #clampPosition() {
-        if (this._position.y < 0 + this.radius) {
-            this._position = createVector(this._position.x, this.radius);
-            this._onHitVerticalBorder();
-        }
-        else if (this._position.y > this.canvasSize.y - this.radius) {
-            this._position = createVector(this._position.x, this.canvasSize.y - this.radius);
-            this._onHitVerticalBorder();
-        }
-        if (this._position.x < 0 + this.radius) {
-            this._position = createVector(this.radius, this._position.y);
-            this._onHitHorizontalBorder();
-        }
-        else if (this._position.x > this.canvasSize.x - this.radius) {
-            this._position = createVector(this.canvasSize.x - this.radius, this._position.y);
-            this._onHitHorizontalBorder();
-        }
+    #constrainPositionInCanvas() {
+        let constrainedPositionX = constrain(this._position.x, this.#minPositionXInCanvas, this.#maxPositionXInCanvas);
+        let constrainedPositionY = constrain(this._position.y, this.#minPositionYInCanvas, this.#maxPositionYInCanvas);
+        
+        if (constrainedPositionX != this._position.x) this._onHitHorizontalBorder();
+        if (constrainedPositionY != this._position.y) this._onHitVerticalBorder();
+
+        this._position = createVector(constrainedPositionX, constrainedPositionY);
+    }
+
+    get #minPositionXInCanvas() {
+        return this.radius;
+    }
+    get #maxPositionXInCanvas() {
+        return this.canvasSize.x - this.radius;
+    }
+
+    get #minPositionYInCanvas() {
+        return this.radius;
+    }
+    get #maxPositionYInCanvas() {
+        return this.canvasSize.y - this.radius;
     }
 
     _onHitVerticalBorder() { }
-
     _onHitHorizontalBorder() { }
 
     update() {
-        this.position = createVector(this.position.x + this.direction.x * this.speed, this.position.y + this.direction.y * this.speed);
+        let moveAmount = createVector(this.direction.x, this.direction.y).mult(this.speed);
+        this.position = createVector(this.position.x + moveAmount.x, this.position.y + moveAmount.y);
     }
 
     show() {
