@@ -1,0 +1,23 @@
+{
+    "player":
+    {
+        "speed" : 3,
+        "diameter": 30,
+        "color":"#E6E9FE"
+    },
+    "enemy":
+    {
+        "speed" : 6,
+        "diameter": 60,
+        "color":"#FF7657"
+    },
+    "general":
+    {
+        "canvasWidth" : 720,
+        "canvasHeight" : 480,
+        "gameplayBackgroundColor":"#1E1F21",
+        "gameOverBackgroundColor":"#992F0F",
+        "maxEnemiesLength": 5,
+        "scoreIntervalToSpawnEnemies" : 100
+    }
+}

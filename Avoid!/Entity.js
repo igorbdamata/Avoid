@@ -1,12 +1,12 @@
 class Entity {
-    constructor(position, diameter, color, direction, speed, canvasLimit) {
+    constructor(position, diameter, color, direction, speed, canvasSize) {
 
         this._position = position;
         this.diameter = diameter;
         this.color = color;
         this.direction = direction;
         this.speed = speed;
-        this.canvasLimit = canvasLimit;
+        this.canvasSize = canvasSize;
 
         this.radius = diameter / 2;
     }
@@ -23,16 +23,16 @@ class Entity {
             this._position = createVector(this._position.x, this.radius);
             this._onHitVerticalBorder();
         }
-        else if (this._position.y > this.canvasLimit.y - this.radius) {
-            this._position = createVector(this._position.x, this.canvasLimit.y - this.radius);
+        else if (this._position.y > this.canvasSize.y - this.radius) {
+            this._position = createVector(this._position.x, this.canvasSize.y - this.radius);
             this._onHitVerticalBorder();
         }
         if (this._position.x < 0 + this.radius) {
             this._position = createVector(this.radius, this._position.y);
             this._onHitHorizontalBorder();
         }
-        else if (this._position.x > this.canvasLimit.x - this.radius) {
-            this._position = createVector(this.canvasLimit.x - this.radius, this._position.y);
+        else if (this._position.x > this.canvasSize.x - this.radius) {
+            this._position = createVector(this.canvasSize.x - this.radius, this._position.y);
             this._onHitHorizontalBorder();
         }
     }

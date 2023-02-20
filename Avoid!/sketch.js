@@ -1,32 +1,28 @@
-let width = 720;
-let height = 480;
-
 let player;
 let enemies = [];
-let maxEnemiesLength = 5;
 let currentScore = 0;
 let scoreOnLastSpawn = 0;
 let startGameTime;
+let settings;
+let canvasSize;
 
-
+function preload()
+{
+  settings = loadJSON("Settings.json");
+}
 function displayText(color, size, textToDiplay, position) {
   fill(color);
   textSize(size);
   text(textToDiplay, position.x, position.y);
 }
 
-function CreateEnemy() {
-  let posX = random(0, width);
-  let posY = random(0, 11) > 5 ? 0 : height;
-  let enemy = new Enemy(createVector(posX, posY), 60, 6, createVector(width, height), player, '#FF7657');
-  enemies.push(enemy);
-}
-
-function setup() {
-  createCanvas(width, height);
+function setup() 
+{
+  canvasSize = createVector(settings.general.canvasWidth, settings.general.canvasHeight);
+  createCanvas(canvasSize.x, canvasSize.y);
   addScene('GameOver', new GameOverScene());
-  addScene('GamePlay', new GamePlayScene());
-  LoadScene('GamePlay');
+  addScene('Gameplay', new GameplayScene());
+  LoadScene('Gameplay');
 }
 
 function draw() {
@@ -36,7 +32,7 @@ function draw() {
 
 function keyPressed() {
   if (currentScene == 'GameOver') {
-    LoadScene('GamePlay');
+    LoadScene('Gameplay');
   }
 
   if (keyCode === UP_ARROW) {

@@ -1,9 +1,9 @@
 class Enemy extends Entity {
-    constructor(position, diameter, speed, canvasLimit, player, color) {
+    constructor(position, diameter, speed, canvasSize, player, color) {
         let directionX = random(11) > 5 ? 1 : -1;
         let directionY = random(11) > 5 ? 1 : -1;
         let direction = createVector(directionX, directionY);
-        super(position, diameter, color, direction, speed,canvasLimit);
+        super(position, diameter, color, direction, speed, canvasSize);
         this.player = player;
     }
 
@@ -27,12 +27,10 @@ class Enemy extends Entity {
         LoadScene('GameOver');
     }
 
-    _onHitHorizontalBorder()
-    {
+    _onHitHorizontalBorder() {
         this.direction.x *= -1;
     }
-    _onHitVerticalBorder()
-    {
+    _onHitVerticalBorder() {
         this.direction.y *= -1;
     }
 }

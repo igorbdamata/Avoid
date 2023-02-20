@@ -4,7 +4,7 @@ class GameOverScene extends Scene {
     }
 
     update() {
-        background('#992F0F');
+        background(settings.general.gameOverBackgroundColor);
 
         let size = 64;
         let textToDisplay = 'Game Over!';

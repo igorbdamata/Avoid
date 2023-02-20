@@ -1,18 +1,16 @@
-class GamePlayScene extends Scene {
+class GameplayScene extends Scene {
     init() {
         startGameTime = performance.now();
-        let playerDiameter = 30;
-        let playerSpeed = 3;
-        let playerPosition = createVector(width / 2, height / 2);
-        player = new Player(playerPosition, playerDiameter, playerSpeed, createVector(width, height), '#E6E9FE');
+        let playerPosition = createVector(canvasSize.x / 2, canvasSize.y / 2);
+        player = new Player(playerPosition, settings.player.diameter, settings.player.speed, canvasSize, settings.player.color);
         scoreOnLastSpawn = 0;
         currentScore = 0;
         enemies = [];
-        CreateEnemy();
+        this.CreateEnemy();
     }
 
     update() {
-        background('#1E1F21');
+        background(settings.general.gameplayBackgroundColor);
         enemies.forEach(element => {
           element.update();
           element.show();
@@ -21,12 +19,19 @@ class GamePlayScene extends Scene {
         player.update();
         player.show();
         currentScore = round((performance.now() - startGameTime) / 100);
-        if (enemies.length < maxEnemiesLength && currentScore - scoreOnLastSpawn >= 100) {
+        if (enemies.length < settings.general.maxEnemiesLength && currentScore - scoreOnLastSpawn >= settings.general.scoreIntervalToSpawnEnemies) {
           scoreOnLastSpawn = currentScore;
-          CreateEnemy();
+          this.CreateEnemy();
         }
     
         let size = 30;
         displayText('#E6E9FE', size, 'Score: ' + currentScore, createVector(20, size + 20))
+    }
+
+    CreateEnemy() {
+      let posX = random(0, width);
+      let posY = random(0, 11) > 5 ? 0 : height;
+      let enemy = new Enemy(createVector(posX, posY), 60, 6, canvasSize, player, '#FF7657');
+      enemies.push(enemy);
     }
 }
