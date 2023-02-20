@@ -6,6 +6,9 @@ function displayText(color, size, textToDiplay, position) {
   textSize(size);
   text(textToDiplay, position.x, position.y);
 }
+function GetCentralizedAxisXOf(textToDisplay, textSize) {
+  return (canvasSize.x - textToDisplay.length / 2 * textSize) / 2;
+}
 
 function preload() {
   settings = loadJSON("Settings.json");

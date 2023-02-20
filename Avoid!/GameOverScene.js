@@ -1,15 +1,21 @@
 class GameOverScene extends Scene {
     update() {
         background(settings.general.gameOverBackgroundColor);
-
+        this.#displayGameOverText();
+        this.#displayPressAnyKeyText();
+    }
+    #displayGameOverText()
+    {
         let size = 64;
         let textToDisplay = 'Game Over!';
-        let textPosition = createVector((width - textToDisplay.length / 2 * size) / 2, height / 2);
+        let textPosition = createVector(GetCentralizedAxisXOf(textToDisplay, size), height / 2);
         displayText('#E6E9FE', size, textToDisplay, textPosition)
-
-        size = 32;
-        textToDisplay = 'Press any key!';
-        textPosition = createVector((width - textToDisplay.length / 2 * size) / 2, height / 2 + 100);
+    }
+    #displayPressAnyKeyText()
+    {
+        let size = 32;
+        let textToDisplay = 'Press any key!';
+        let textPosition = createVector(GetCentralizedAxisXOf(textToDisplay, size), height / 2 + 100);
         displayText('#E6E9FE', size, textToDisplay, textPosition)
     }
 

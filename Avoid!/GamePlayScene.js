@@ -5,42 +5,52 @@ class GameplayScene extends Scene {
     this.player = new Player(playerPosition, settings.player.diameter, settings.player.speed, canvasSize, settings.player.color);
 
     this.startGameTime = performance.now();
-
     this.scoreOnLastSpawn = 0;
-    this.currentScore = 0;
 
     this.enemies = [];
-    this.CreateEnemy();
+    this.SpawnEnemy();
+  }
+
+  get currentScore() {
+    return round((performance.now() - this.startGameTime) / 100);
+  }
+  get scoreInterval() {
+    return this.currentScore - this.scoreOnLastSpawn;
   }
 
   update() {
     background(settings.general.gameplayBackgroundColor);
-    this.enemies.forEach(element => {
-      element.update();
-      element.show();
-    });
+    this.#updateEnemies();
+    this.#updatePlayer();
 
-    this.player.update();
-    this.player.show();
-    this.currentScore = round((performance.now() - this.startGameTime) / 100);
-    if (this.#canSpawnEnemies() && this.scoreInterval >= settings.general.scoreIntervalToSpawnEnemies) {
-      this.CreateEnemy();
+    if (this.#stillHaveEnemiesToSpawn && this.#isTimeToSpawnANewEnemy) {
+      this.SpawnEnemy();
     }
 
     let size = 30;
     displayText('#E6E9FE', size, 'Score: ' + this.currentScore, createVector(20, size + 20))
   }
 
-  #canSpawnEnemies() {
+  #updateEnemies() {
+    this.enemies.forEach(element => {
+      element.update();
+      element.show();
+    });
+  }
+
+  #updatePlayer() {
+    this.player.update();
+    this.player.show();
+  }
+
+  get #stillHaveEnemiesToSpawn() {
     return this.enemies.length < settings.general.maxEnemiesLength;
   }
-
-  get scoreInterval()
-  {
-    return this.currentScore - this.scoreOnLastSpawn;
+  get #isTimeToSpawnANewEnemy() {
+    return this.scoreInterval >= settings.general.scoreIntervalToSpawnEnemies
   }
 
-  CreateEnemy() {
+  SpawnEnemy() {
     this.scoreOnLastSpawn = this.currentScore;
 
     let posX = random(0, canvasSize.x);
@@ -49,8 +59,7 @@ class GameplayScene extends Scene {
     this.enemies.push(enemy);
   }
 
-  onKeyPressed()
-  {
+  onKeyPressed() {
     if (keyCode === UP_ARROW) {
       this.player.direction.y = -1;
     }
@@ -65,8 +74,7 @@ class GameplayScene extends Scene {
     }
   }
 
-  onKeyReleased()
-  {
+  onKeyReleased() {
     if (keyCode === UP_ARROW && this.player.direction.y < 0) {
       this.player.direction.y = 0;
     }

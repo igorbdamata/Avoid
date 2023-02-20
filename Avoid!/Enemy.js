@@ -1,13 +1,10 @@
 class Enemy extends Entity {
     constructor(position, diameter, speed, canvasSize, player, color) {
-        super(position, diameter, color, this.#getNewDirection(), speed, canvasSize);
-        this.player = player;
-    }
-    #getNewDirection()
-    {
         let directionX = random(11) > 5 ? 1 : -1;
         let directionY = random(11) > 5 ? 1 : -1;
-        return createVector(directionX, directionY);
+        let direction = createVector(directionX, directionY);
+        super(position, diameter, color, direction, speed, canvasSize);
+        this.player = player;
     }
 
     update() {
