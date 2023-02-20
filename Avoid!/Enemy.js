@@ -24,7 +24,7 @@ class Enemy extends Entity {
     }
 
     #onCollideWithPlayer() {
-        LoadScene('GameOver');
+        onGameOver();
     }
 
     _onHitHorizontalBorder() {

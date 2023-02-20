@@ -11,11 +11,8 @@ class GameplayScene extends Scene {
     this.SpawnEnemy();
   }
 
-  get currentScore() {
-    return round((performance.now() - this.startGameTime) / 100);
-  }
   get scoreInterval() {
-    return this.currentScore - this.scoreOnLastSpawn;
+    return currentScore - this.scoreOnLastSpawn;
   }
 
   update() {
@@ -23,12 +20,14 @@ class GameplayScene extends Scene {
     this.#updateEnemies();
     this.#updatePlayer();
 
+    currentScore = round((performance.now() - this.startGameTime) / 100);
+
     if (this.#stillHaveEnemiesToSpawn && this.#isTimeToSpawnANewEnemy) {
       this.SpawnEnemy();
     }
 
     let size = 30;
-    displayText('#E6E9FE', size, 'Score: ' + this.currentScore, createVector(20, size + 20))
+    displayText('#E6E9FE', size, 'Score: ' + currentScore, createVector(20, size + 20))
   }
 
   #updateEnemies() {

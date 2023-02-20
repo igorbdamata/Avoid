@@ -1,5 +1,7 @@
 let settings;
 let canvasSize;
+let currentScore;
+let highScore=0;
 
 function displayText(color, size, textToDiplay, position) {
   fill(color);
@@ -32,4 +34,13 @@ function keyPressed() {
 
 function keyReleased() {
   currentScene.onKeyReleased();
+}
+
+function onGameOver()
+{
+  LoadScene('GameOver');
+  if(currentScore>highScore)
+  {
+    highScore = currentScore;
+  }
 }

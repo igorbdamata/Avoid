@@ -3,6 +3,7 @@ class GameOverScene extends Scene {
         background(settings.general.gameOverBackgroundColor);
         this.#displayGameOverText();
         this.#displayPressAnyKeyText();
+        this.#displayScoreAndHighScoreText();
     }
     #displayGameOverText()
     {
@@ -16,6 +17,14 @@ class GameOverScene extends Scene {
         let size = 32;
         let textToDisplay = 'Press any key!';
         let textPosition = createVector(GetCentralizedAxisXOf(textToDisplay, size), height / 2 + 100);
+        displayText('#E6E9FE', size, textToDisplay, textPosition)
+    }
+
+    #displayScoreAndHighScoreText()
+    {
+        let size = 32;
+        let textToDisplay = 'Score: ' + currentScore + "\nHigh score: " + highScore;
+        let textPosition = createVector(20,20*2);
         displayText('#E6E9FE', size, textToDisplay, textPosition)
     }
 
