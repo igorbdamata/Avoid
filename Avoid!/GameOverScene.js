@@ -1,4 +1,9 @@
 class GameOverScene extends Scene {
+    init()
+    {
+        gameOverSFX.play();
+    }
+    
     update() {
         background(settings.general.gameOverBackgroundColor);
         this.#displayGameOverText();

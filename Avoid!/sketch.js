@@ -2,6 +2,9 @@ let settings;
 let canvasSize;
 let currentScore;
 let highScore=0;
+let gameStartSFX;
+let ballHitSFX;
+let gameOverSFX;
 
 function displayText(color, size, textToDiplay, position) {
   fill(color);
@@ -14,6 +17,9 @@ function GetCentralizedAxisXOf(textToDisplay, textSize) {
 
 function preload() {
   settings = loadJSON("Settings.json");
+  gameStartSFX = loadSound("Assets/gameStart.mp3")
+  ballHitSFX = loadSound("Assets/ballHit.mp3")
+  gameOverSFX = loadSound("Assets/gameOver.mp3")
 }
 
 function setup() {

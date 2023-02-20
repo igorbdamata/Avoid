@@ -28,9 +28,11 @@ class Enemy extends Entity {
     }
 
     _onHitHorizontalBorder() {
+        ballHitSFX.play();
         this.direction.x *= -1;
     }
     _onHitVerticalBorder() {
+        ballHitSFX.play();
         this.direction.y *= -1;
     }
 }
