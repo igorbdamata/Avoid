@@ -7,13 +7,13 @@ class GameplayScene extends Scene {
 
     this.startGameTime = performance.now();
     this.scoreOnLastSpawn = 0;
-    currentScore=0;
+    currentScore = 0;
 
     this.enemies = [];
     this.SpawnEnemy();
   }
 
-  
+
 
   update() {
     background(settings.general.gameplayBackgroundColor);
@@ -46,7 +46,7 @@ class GameplayScene extends Scene {
     return this.enemies.length < settings.general.maxEnemiesLength;
   }
   get #isTimeToSpawnANewEnemy() {
-    return this.scoreInterval >= settings.general.scoreIntervalToSpawnEnemies
+    return this.scoreInterval >= settings.general.scoreIntervalToSpawnEnemies;
   }
   get scoreInterval() {
     return currentScore - this.scoreOnLastSpawn;
@@ -54,11 +54,13 @@ class GameplayScene extends Scene {
 
   SpawnEnemy() {
     this.scoreOnLastSpawn = currentScore;
-
-    let posX = random(0, canvasSize.x);
-    let posY = random(0, 11) > 5 ? 0 : canvasSize.y;
-    let enemy = new Enemy(createVector(posX, posY), settings.enemy.diameter, settings.enemy.speed, canvasSize, this.player, settings.enemy.color);
+    let enemy = new Enemy(this.#getPositionForNewEnemy(), settings.enemy.diameter, settings.enemy.speed, canvasSize, this.player, settings.enemy.color);
     this.enemies.push(enemy);
+  }
+  #getPositionForNewEnemy() {
+    let posX = this.player.position.x < canvasSize.x/2 ? canvasSize.x : 0;    
+    let posY = this.player.position.y < canvasSize.y/2 ? 0 : canvasSize.y;
+    return createVector(posX,posY);
   }
 
   onKeyPressed() {
