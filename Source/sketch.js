@@ -1,7 +1,7 @@
 let settings;
 let canvasSize;
 let currentScore;
-let highScore=0;
+let highScore = 0;
 let gameStartSFX;
 let ballHitSFX;
 let gameOverSFX;
@@ -20,6 +20,7 @@ function preload() {
   gameStartSFX = loadSound("Assets/gameStart.mp3")
   ballHitSFX = loadSound("Assets/ballHit.mp3")
   gameOverSFX = loadSound("Assets/gameOver.mp3")
+  highScore = localStorage.getItem("highScore");
 }
 
 function setup() {
@@ -43,11 +44,10 @@ function keyReleased() {
   currentScene.onKeyReleased();
 }
 
-function onGameOver()
-{
+function onGameOver() {
   LoadScene('GameOver');
-  if(currentScore>highScore)
-  {
+  if (currentScore > highScore) {
     highScore = currentScore;
+    localStorage.setItem("highScore", highScore);
   }
 }

@@ -4,6 +4,7 @@ class TitleScreenScene extends Scene {
         this.#displayGameTitleText();
         this.#displayPressAnyKeyText();
         this.#displayKeysText();
+        this.#displayHighScoreText();
     }
     #displayGameTitleText() {
         let size = 64;
@@ -21,7 +22,13 @@ class TitleScreenScene extends Scene {
     #displayKeysText() {
         let size = 32;
         let textToDisplay = "Arrows to move"
-        let textPosition = createVector(20, 20+size);
+        let textPosition = createVector(20, 20 + size);
+        displayText('#E6E9FE', size, textToDisplay, textPosition)
+    }
+    #displayHighScoreText() {
+        let size = 32;
+        let textToDisplay = "High score: " + highScore;
+        let textPosition = createVector(20, 20 * 2 + size*2);
         displayText('#E6E9FE', size, textToDisplay, textPosition)
     }
 
