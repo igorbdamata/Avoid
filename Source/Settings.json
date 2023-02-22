@@ -7,7 +7,8 @@
     },
     "enemy":
     {
-        "speed" : 6,
+        "minSpeed" : 3,
+        "maxSpeed" : 6,
         "diameter": 60,
         "color":"#FF7657"
     },

@@ -54,7 +54,7 @@ class GameplayScene extends Scene {
 
   SpawnEnemy() {
     this.scoreOnLastSpawn = currentScore;
-    let enemy = new Enemy(this.#getPositionForNewEnemy(), settings.enemy.diameter, settings.enemy.speed, canvasSize, this.player, settings.enemy.color);
+    let enemy = new Enemy(this.#getPositionForNewEnemy(), settings.enemy.diameter, settings.enemy.minSpeed,settings.enemy.maxSpeed, canvasSize, this.player, settings.enemy.color);
     this.enemies.push(enemy);
   }
   #getPositionForNewEnemy() {
