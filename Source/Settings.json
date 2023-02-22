@@ -20,5 +20,28 @@
         "titleScreenBackgroundColor":"#992F0F",
         "maxEnemiesLength": 5,
         "scoreIntervalToSpawnEnemies" : 100
+    },
+    "difficultCurve":
+    {
+        "point1": 
+        {
+            "x":1,
+            "y":0
+        },
+        "point2": 
+        {
+            "x":0.54,
+            "y":0.15
+        },
+        "point3": 
+        {
+            "x":0.33,
+            "y":0.93
+        },
+        "point4": 
+        {
+            "x":0,
+            "y":0.9
+        }
     }
 }

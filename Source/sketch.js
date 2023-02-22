@@ -51,3 +51,13 @@ function onGameOver() {
     localStorage.setItem("highScore", highScore);
   }
 }
+
+function getDifficultFactorFromScore()
+{
+  if(currentSceneKey != "Gameplay") return 0;
+  let scoreWithMaxDifficult = settings.general.maxEnemiesLength*settings.general.scoreIntervalToSpawnEnemies;
+  let t = currentScore/scoreWithMaxDifficult;
+  let curve = settings.difficultCurve;
+  let difficult = bezierPoint(curve.point1.y, curve.point2.y, curve.point3.y, curve.point4.y, t);
+  return difficult;
+}
