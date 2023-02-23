@@ -5,22 +5,21 @@ class GameplayScene extends Scene {
     let playerPosition = createVector(canvasSize.x / 2, canvasSize.y / 2);
     this.player = new Player(playerPosition, settings.player.diameter, settings.player.speed, canvasSize, settings.player.color);
 
-    this.startGameTime = performance.now();
-    this.scoreOnLastSpawn = 0;
+    this.timeOnLastSpawn = currentSeconds();
     currentScore = 0;
 
     this.enemies = [];
     this.SpawnEnemy();
   }
 
-
+  addScore() {
+    currentScore += int(random(1, 11));
+  }
 
   update() {
     background(settings.general.gameplayBackgroundColor);
     this.#updateEnemies();
     this.#updatePlayer();
-
-    currentScore = round((performance.now() - this.startGameTime) / 100);
 
     if (this.#stillHaveEnemiesToSpawn && this.#isTimeToSpawnANewEnemy) {
       this.SpawnEnemy();
@@ -46,21 +45,22 @@ class GameplayScene extends Scene {
     return this.enemies.length < settings.general.maxEnemiesLength;
   }
   get #isTimeToSpawnANewEnemy() {
-    return this.scoreInterval >= settings.general.scoreIntervalToSpawnEnemies;
+    return this.currentTimeInterval >= settings.general.secondsIntervalToSpawnEnemies;
   }
-  get scoreInterval() {
-    return currentScore - this.scoreOnLastSpawn;
+  get currentTimeInterval() {
+    return currentSeconds()- this.timeOnLastSpawn;
   }
 
   SpawnEnemy() {
-    this.scoreOnLastSpawn = currentScore;
-    let enemy = new Enemy(this.#getPositionForNewEnemy(), settings.enemy.diameter, settings.enemy.minSpeed,settings.enemy.maxSpeed, canvasSize, this.player, settings.enemy.color);
+    this.timeOnLastSpawn =currentSeconds();
+    let enemy = new Enemy(this.#getPositionForNewEnemy(), settings.enemy.diameter, settings.enemy.minSpeed, settings.enemy.maxSpeed, canvasSize, this.player, settings.enemy.color);
     this.enemies.push(enemy);
   }
   #getPositionForNewEnemy() {
-    let posX = this.player.position.x < canvasSize.x/2 ? canvasSize.x : 0;    
-    let posY = this.player.position.y < canvasSize.y/2 ? 0 : canvasSize.y;
-    return createVector(posX,posY);
+    let diameter = settings.enemy.diameter;
+    let posX = this.player.position.x < canvasSize.x / 2 ? canvasSize.x - diameter : diameter;
+    let posY = this.player.position.y < canvasSize.y / 2 ? diameter : canvasSize.y - diameter;
+    return createVector(posX, posY);
   }
 
   onKeyPressed() {
