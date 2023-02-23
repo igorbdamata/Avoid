@@ -1,9 +1,6 @@
-class Enemy extends Entity {
+class Enemy extends BouncingEntity {
     constructor(position, diameter, minSpeed, maxSpeed, canvasSize, player, color) {
-        let directionX = random(11) > 5 ? 1 : -1;
-        let directionY = random(11) > 5 ? 1 : -1;
-        let direction = createVector(directionX, directionY);
-        super(position, diameter, color, direction, 0, canvasSize);
+        super(position, diameter, 0, canvasSize, color);
         this.player = player;
         this.minSpeed = minSpeed;
         this.maxSpeed = maxSpeed;
@@ -34,14 +31,12 @@ class Enemy extends Entity {
     }
 
     _onHitHorizontalBorder() {
-        ballHitSFX.play();
+        super._onHitHorizontalBorder();
         currentScene.addScore();
-        this.direction.x *= -1;
     }
     _onHitVerticalBorder() {
-        ballHitSFX.play();
+        super._onHitVerticalBorder();
         currentScene.addScore();
-        this.direction.y *= -1;
     }
 
 }

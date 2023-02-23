@@ -6,13 +6,11 @@ let gameStartSFX;
 let ballHitSFX;
 let gameOverSFX;
 
-function displayText(color, size, textToDiplay, position) {
+function displayText(color, size, textToDiplay, position, aligment=LEFT) {
+  textAlign(aligment);
   fill(color);
   textSize(size);
   text(textToDiplay, position.x, position.y);
-}
-function GetCentralizedAxisXOf(textToDisplay, textSize) {
-  return (canvasSize.x - textToDisplay.length / 2 * textSize) / 2;
 }
 
 function preload() {
@@ -24,6 +22,7 @@ function preload() {
 }
 
 function setup() {
+  userStartAudio();
   canvasSize = createVector(settings.general.canvasWidth, settings.general.canvasHeight);
   createCanvas(canvasSize.x, canvasSize.y);
   addScene('TitleScreen', new TitleScreenScene());
