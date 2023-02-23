@@ -5,7 +5,7 @@ class GameOverScene extends Scene {
     }
     
     update() {
-        background(settings.general.gameOverBackgroundColor);
+        background(settings.general.gameplayBackgroundColor);
         this.#displayGameOverText();
         this.#displayPressAnyKeyText();
         this.#displayScoreAndHighScoreText();
@@ -27,9 +27,9 @@ class GameOverScene extends Scene {
 
     #displayScoreAndHighScoreText()
     {
-        let size = 32;
-        let textToDisplay = 'Score: ' + currentScore + "\nHigh score: " + highScore;
-        let textPosition = createVector(20,20*2);
+        let size = 30;
+        let textToDisplay = "High score: " + highScore+'\nScore: ' + currentScore;
+        let textPosition = createVector(20,20+size);
         displayText('#E6E9FE', size, textToDisplay, textPosition)
     }
 

@@ -5,6 +5,7 @@ let highScore = 0;
 let gameStartSFX;
 let ballHitSFX;
 let gameOverSFX;
+let gameplayStartTime = 0;
 
 function displayText(color, size, textToDiplay, position, aligment=LEFT) {
   textAlign(aligment);
@@ -55,9 +56,10 @@ function getDifficultFactorFromScore()
 {
   if(currentSceneKey != "Gameplay") return 0;
   let timeWithMaxDifficult = settings.general.maxEnemiesLength*settings.general.secondsIntervalToSpawnEnemies;
-  let t = currentSeconds()/timeWithMaxDifficult;
+  let t = (currentSeconds()-gameplayStartTime)/timeWithMaxDifficult;
   let curve = settings.difficultCurve;
   let difficult = bezierPoint(curve.point1.y, curve.point2.y, curve.point3.y, curve.point4.y, t);
+ 
   return difficult;
 }
 
