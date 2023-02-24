@@ -5,20 +5,22 @@ let highScore = 0;
 let gameStartSFX;
 let ballHitSFX;
 let gameOverSFX;
-let gameplayStartTime = 0;
+let shatellSansFont;
 
-function displayText(color, size, textToDiplay, position, aligment=LEFT) {
+function displayText(color, size, textToDiplay, position, aligment=LEFT, font=shatellSansFont) {
   textAlign(aligment);
   fill(color);
   textSize(size);
+  textFont(font);
   text(textToDiplay, position.x, position.y);
 }
 
 function preload() {
-  settings = loadJSON("Settings.json");
-  gameStartSFX = loadSound("Assets/gameStart.mp3")
-  ballHitSFX = loadSound("Assets/ballHit.mp3")
-  gameOverSFX = loadSound("Assets/gameOver.mp3")
+  settings = loadJSON("Assets/General/Settings.json");
+  gameStartSFX = loadSound("Assets/Sounds/gameStart.mp3")
+  ballHitSFX = loadSound("Assets/Sounds/ballHit.mp3")
+  gameOverSFX = loadSound("Assets/Sounds/gameOver.mp3")
+  shatellSansFont = loadFont("Assets/General/ShantellSans-Regular.ttf")
   highScore = localStorage.getItem("highScore");
 }
 
@@ -56,7 +58,7 @@ function getDifficultFactorFromScore()
 {
   if(currentSceneKey != "Gameplay") return 0;
   let timeWithMaxDifficult = settings.general.maxEnemiesLength*settings.general.secondsIntervalToSpawnEnemies;
-  let t = (currentSeconds()-gameplayStartTime)/timeWithMaxDifficult;
+  let t = (currentSeconds()-currentScene.gameplayStartTime)/timeWithMaxDifficult;
   let curve = settings.difficultCurve;
   let difficult = bezierPoint(curve.point1.y, curve.point2.y, curve.point3.y, curve.point4.y, t);
  

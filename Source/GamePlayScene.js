@@ -6,7 +6,7 @@ class GameplayScene extends Scene {
     this.player = new Player(playerPosition, settings.player.diameter, settings.player.speed, canvasSize, settings.player.color);
 
     this.timeOnLastSpawn = currentSeconds();
-    gameplayStartTime = currentSeconds();
+    this.gameplayStartTime = currentSeconds();
     currentScore = 0;
 
     this.enemies = [];
