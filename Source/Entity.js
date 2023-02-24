@@ -7,6 +7,7 @@ class Entity {
         this.speed = speed;
         this.canvasSize = canvasSize;
         this.radius = diameter / 2;
+        this.lastMovementTime = this.isMoving ? currentSeconds() : 0;
     }
 
     get position() {
@@ -16,10 +17,14 @@ class Entity {
         this._position = value;
         this.#constrainPositionInCanvas();
     }
+    get isMoving() {
+        return !this.direction.equals(createVector(0, 0));
+    }
     #constrainPositionInCanvas() {
+        if (this.isMoving) this.lastMovementTime = currentSeconds()
         let constrainedPositionX = constrain(this._position.x, this.#minPositionXInCanvas, this.#maxPositionXInCanvas);
         let constrainedPositionY = constrain(this._position.y, this.#minPositionYInCanvas, this.#maxPositionYInCanvas);
-        
+
         if (constrainedPositionX != this._position.x) this._onHitHorizontalBorder();
         if (constrainedPositionY != this._position.y) this._onHitVerticalBorder();
 

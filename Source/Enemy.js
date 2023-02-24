@@ -32,11 +32,33 @@ class Enemy extends BouncingEntity {
 
     _onHitHorizontalBorder() {
         super._onHitHorizontalBorder();
-        currentScene.addScore();
+        this.#onHitAnyBorder();
+
     }
     _onHitVerticalBorder() {
         super._onHitVerticalBorder();
-        currentScene.addScore();
+        this.#onHitAnyBorder();
     }
 
+    #onHitAnyBorder() {
+        currentScene.addScore();
+        if (this.player.isTryingToWinOnCorner && this.#canAimOnPlayer) {
+            this.setDirectionToReachPlayer();
+        }
+        else if (abs(this.direction.x) != 1) {
+            this.direction = createVector(round(this.direction.x), round(this.direction.y));
+        }
+    }
+
+    get #canAimOnPlayer() {
+        let pointingHorizontally = (this.player.position.y < height / 2) == (this.direction.y < 0);
+        let pointingVertically = (this.player.position.x < width / 2) == (this.direction.x < 0);
+        console.log((pointingHorizontally && pointingVertically) ? " aiming" : "mot aiming")
+        return pointingHorizontally && pointingVertically;
+    }
+    setDirectionToReachPlayer() {
+        let distance = createVector(this.player.position.x - this.position.x, this.player.position.y - this.position.y);
+        let angle = atan2(distance.y, distance.x);
+        this.direction = createVector(cos(angle), sin(angle)).setMag(sqrt(2));
+    }
 }

@@ -1,5 +1,5 @@
 class GameplayScene extends Scene {
-
+  
   init() {
     gameStartSFX.play();
     let playerPosition = createVector(canvasSize.x / 2, canvasSize.y / 2);
