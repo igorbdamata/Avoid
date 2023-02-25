@@ -1,19 +1,49 @@
 class Player extends Entity {
-    constructor(position, diameter, speed, color) {
-        super(position, diameter, color, createVector(0, 0), speed);
+    constructor(position) {
+        super(position, settings.player.diameter, settings.player.color, createVector(0, 0), settings.player.speed);
+        this.maxSecondsOnCorner = settings.general.maxSecondsOnCorner
+        this.cornerRadius = settings.general.cornerRadius;
     }
 
     get isTryingToWinOnCorner() {
-        let canBeOnCorner = currentSeconds() - this.lastMovementTime < settings.general.maxSecondsOnCorner;
-        return !this.isMoving && !canBeOnCorner && this.#isOnCorner;
+        let intervalSinceStoppedMovement = currentSeconds() - this.lastMovementTime;
+        let canBeOnCorner = intervalSinceStoppedMovement < this.maxSecondsOnCorner;
+        return !canBeOnCorner && this.#isOnCorner;
     }
-
     get #isOnCorner() {
-        let corners = [createVector(0, 0), createVector(0, height), createVector(width, 0), createVector(width, height)];
-        for (let i = 0; i < corners.length; i++) {
-            if(this.position.dist(corners[i])<=90)
-            return true;
+        for (const [key, corner] of Object.entries(canvasCorners)) {
+            if (this.position.dist(corner) <= this.cornerRadius)
+                return true;
         }
         return false;
+    }
+
+    onPress(input) {
+        if (input === UP_ARROW) {
+            this.direction = createVector(this.direction.x, -1);
+        }
+        else if (input === LEFT_ARROW) {
+            this.direction = createVector(-1, this.direction.y);
+        }
+        else if (input === DOWN_ARROW) {
+            this.direction = createVector(this.direction.x, 1);
+        }
+        else if (input === RIGHT_ARROW) {
+            this.direction = createVector(1, this.direction.y);
+        }
+    }
+    onRelease(input) {
+        if (input === UP_ARROW && this.direction.y < 0) {
+            this.direction = createVector(this.direction.x, 0);
+        }
+        else if (input === LEFT_ARROW && this.direction.x < 0) {
+            this.direction = createVector(0, this.direction.y);
+        }
+        else if (input === DOWN_ARROW && this.direction.y > 0) {
+            this.direction = createVector(this.direction.x, 0);
+        }
+        else if (input === RIGHT_ARROW && this.direction.x > 0) {
+            this.direction = createVector(0, this.direction.y);
+        }
     }
 }

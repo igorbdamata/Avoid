@@ -3,7 +3,7 @@ class GameplayScene extends Scene {
   init() {
     gameStartSFX.play();
     let playerPosition = createVector(width / 2, height / 2);
-    this.player = new Player(playerPosition, settings.player.diameter, settings.player.speed, settings.player.color);
+    this.player = new Player(playerPosition);
 
     this.timeOnLastSpawn = currentSeconds();
     this.gameplayStartTime = currentSeconds();
@@ -52,13 +52,11 @@ class GameplayScene extends Scene {
   #updateEnemies() {
     this.enemies.forEach(element => {
       element.update();
-      element.show();
     });
   }
 
   #updatePlayer() {
     this.player.update();
-    this.player.show();
   }
 
   get #stillHaveEnemiesToSpawn() {
@@ -85,32 +83,10 @@ class GameplayScene extends Scene {
   }
 
   onKeyPressed() {
-    if (keyCode === UP_ARROW) {
-      this.player.direction.y = -1;
-    }
-    else if (keyCode === LEFT_ARROW) {
-      this.player.direction.x = -1;
-    }
-    else if (keyCode === DOWN_ARROW) {
-      this.player.direction.y = +1;
-    }
-    else if (keyCode === RIGHT_ARROW) {
-      this.player.direction.x = +1;
-    }
+    this.player.onPress(keyCode);
   }
 
   onKeyReleased() {
-    if (keyCode === UP_ARROW && this.player.direction.y < 0) {
-      this.player.direction.y = 0;
-    }
-    else if (keyCode === LEFT_ARROW && this.player.direction.x < 0) {
-      this.player.direction.x = 0;
-    }
-    else if (keyCode === DOWN_ARROW && this.player.direction.y > 0) {
-      this.player.direction.y = 0;
-    }
-    else if (keyCode === RIGHT_ARROW && this.player.direction.x > 0) {
-      this.player.direction.x = 0
-    }
+    this.player.onRelease(keyCode);
   }
 }

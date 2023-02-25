@@ -21,7 +21,8 @@
         "maxEnemySpawnCooldown": 25,
         "maxSecondsOnCorner": 5,
         "defaultStrokeWeight": 2,
-        "defaultStrokeColor": "#64656E"
+        "defaultStrokeColor": "#64656E",
+        "cornerRadius" : 90
     },
     "difficultCurve": {
         "point1": {

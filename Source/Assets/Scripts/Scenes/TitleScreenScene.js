@@ -13,7 +13,6 @@ class TitleScreenScene extends Scene {
 
         for (let i = 0; i < this.balls.length; i++) {
             this.balls[i].update();
-            this.balls[i].show();
         }
 
         this.#displayGameTitleText();

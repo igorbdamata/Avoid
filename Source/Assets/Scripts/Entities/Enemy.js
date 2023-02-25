@@ -58,6 +58,6 @@ class Enemy extends BouncingEntity {
     setDirectionToReachPlayer() {
         let distance = createVector(this.player.position.x - this.position.x, this.player.position.y - this.position.y);
         let angle = atan2(distance.y, distance.x);
-        this.direction = createVector(cos(angle), sin(angle)).setMag(sqrt(2));
+        this.direction = createVector(cos(angle), sin(angle));
     }
 }
