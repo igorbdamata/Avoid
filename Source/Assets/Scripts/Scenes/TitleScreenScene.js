@@ -48,6 +48,6 @@ class TitleScreenScene extends Scene {
     }
 
     onKeyPressed() {
-        LoadScene("Gameplay");
+        loadScene("Gameplay");
     }
 }

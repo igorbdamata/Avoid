@@ -35,6 +35,6 @@ class GameOverScene extends Scene {
 
     onKeyPressed()
     {
-        LoadScene("Gameplay");
+        loadScene("Gameplay");
     }
 }

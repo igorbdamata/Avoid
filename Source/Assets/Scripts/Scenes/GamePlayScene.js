@@ -11,7 +11,7 @@ class GameplayScene extends Scene {
     currentScore = 0;
 
     this.enemies = [];
-    this.SpawnEnemy();
+    this.spawnEnemy();
   }
 
   addScore() {
@@ -24,7 +24,7 @@ class GameplayScene extends Scene {
     this.#updatePlayer();
 
     if (this.#stillHaveEnemiesToSpawn && this.#isTimeToSpawnANewEnemy) {
-      this.SpawnEnemy();
+      this.spawnEnemy();
     }
 
     let size = 30;
@@ -53,7 +53,7 @@ class GameplayScene extends Scene {
     return currentSeconds()- this.timeOnLastSpawn;
   }
 
-  SpawnEnemy() {
+  spawnEnemy() {
     this.timeOnLastSpawn =currentSeconds();
     this.intervalToSpawnEnemy = random(settings.general.minEnemySpawnCooldown,settings.general.maxEnemySpawnCooldown);
     let enemy = new Enemy(this.#getPositionForNewEnemy(), settings.enemy.diameter, settings.enemy.minSpeed, settings.enemy.maxSpeed, canvasSize, this.player, settings.enemy.color);

@@ -6,7 +6,7 @@ function addScene(sceneName, newScene) {
     scenes[sceneName] = newScene;
 }
 
-function LoadScene(scene) {
+function loadScene(scene) {
     currentSceneKey = scene;
     currentScene = scenes[currentSceneKey];
     currentScene.init();

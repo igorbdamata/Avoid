@@ -31,7 +31,7 @@ function setup() {
   addScene('TitleScreen', new TitleScreenScene());
   addScene('Gameplay', new GameplayScene());
   addScene('GameOver', new GameOverScene());
-  LoadScene('TitleScreen');
+  loadScene('TitleScreen');
 }
 
 function draw() {
@@ -47,7 +47,7 @@ function keyReleased() {
 }
 
 function onGameOver() {
-  LoadScene('GameOver');
+  loadScene('GameOver');
   if (currentScore > highScore) {
     highScore = currentScore;
     localStorage.setItem("highScore", highScore);
