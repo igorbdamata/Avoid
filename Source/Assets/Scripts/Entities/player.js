@@ -1,6 +1,6 @@
 class Player extends Entity {
-    constructor(position, diameter, speed, canvasSize, color) {
-        super(position, diameter, color, createVector(0, 0), speed, canvasSize);
+    constructor(position, diameter, speed, color) {
+        super(position, diameter, color, createVector(0, 0), speed);
     }
 
     get isTryingToWinOnCorner() {

@@ -1,11 +1,10 @@
 class Entity {
-    constructor(position, diameter, color, direction, speed, canvasSize) {
+    constructor(position, diameter, color, direction, speed) {
         this._position = position;
         this.diameter = diameter;
         this.color = color;
         this.direction = direction;
         this.speed = speed;
-        this.canvasSize = canvasSize;
         this.radius = diameter / 2;
         this.lastMovementTime = this.isMoving ? currentSeconds() : 0;
     }
@@ -35,14 +34,14 @@ class Entity {
         return this.radius;
     }
     get #maxPositionXInCanvas() {
-        return this.canvasSize.x - this.radius;
+        return width - this.radius;
     }
 
     get #minPositionYInCanvas() {
         return this.radius;
     }
     get #maxPositionYInCanvas() {
-        return this.canvasSize.y - this.radius;
+        return height - this.radius;
     }
 
     _onHitVerticalBorder() { }

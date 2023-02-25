@@ -1,6 +1,6 @@
 class Enemy extends BouncingEntity {
-    constructor(position, diameter, minSpeed, maxSpeed, canvasSize, player, color) {
-        super(position, diameter, 0, canvasSize, color);
+    constructor(position, diameter, minSpeed, maxSpeed, player, color) {
+        super(position, diameter, 0, color);
         this.player = player;
         this.minSpeed = minSpeed;
         this.maxSpeed = maxSpeed;
@@ -12,7 +12,7 @@ class Enemy extends BouncingEntity {
         this.#checkCollisionWithPlayer();
     }
     get speedFromDifficult() {
-        return (this.maxSpeed - this.minSpeed) * getDifficultFactorFromScore() + this.minSpeed;
+        return (this.maxSpeed - this.minSpeed) * currentScene.getDifficultFactorFromScore() + this.minSpeed;
     }
 
     #checkCollisionWithPlayer() {
@@ -27,7 +27,7 @@ class Enemy extends BouncingEntity {
     }
 
     #onCollideWithPlayer() {
-        onGameOver();
+        currentScene.onGameOver();
     }
 
     _onHitHorizontalBorder() {
