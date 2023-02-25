@@ -53,7 +53,6 @@ class Enemy extends BouncingEntity {
     get #canAimOnPlayer() {
         let pointingHorizontally = (this.player.position.y < height / 2) == (this.direction.y < 0);
         let pointingVertically = (this.player.position.x < width / 2) == (this.direction.x < 0);
-        console.log((pointingHorizontally && pointingVertically) ? " aiming" : "mot aiming")
         return pointingHorizontally && pointingVertically;
     }
     setDirectionToReachPlayer() {

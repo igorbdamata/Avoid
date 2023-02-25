@@ -57,7 +57,7 @@ function onGameOver() {
 function getDifficultFactorFromScore()
 {
   if(currentSceneKey != "Gameplay") return 0;
-  let timeWithMaxDifficult = settings.general.maxEnemiesLength*settings.general.secondsIntervalToSpawnEnemies;
+  let timeWithMaxDifficult = (settings.general.maxEnemiesLength+1)*settings.general.maxEnemySpawnCooldown;
   let t = (currentSeconds()-currentScene.gameplayStartTime)/timeWithMaxDifficult;
   let curve = settings.difficultCurve;
   let difficult = bezierPoint(curve.point1.y, curve.point2.y, curve.point3.y, curve.point4.y, t);

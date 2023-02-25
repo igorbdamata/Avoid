@@ -20,7 +20,8 @@
         "gameOverBackgroundColor":"#992F0F",
         "titleScreenBackgroundColor":"#992F0F",
         "maxEnemiesLength": 5,
-        "secondsIntervalToSpawnEnemies" : 20,
+        "minEnemySpawnCooldown" : 20,
+        "maxEnemySpawnCooldown" : 25,
         "maxSecondsOnCorner" : 5
     },
     "difficultCurve":
