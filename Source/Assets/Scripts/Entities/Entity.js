@@ -1,12 +1,21 @@
 class Entity {
     constructor(position, diameter, color, direction, speed) {
         this._position = position;
-        this.diameter = diameter;
-        this.color = color;
         this.direction = direction;
         this.speed = speed;
+
+        this.diameter = diameter;
         this.radius = diameter / 2;
+
+        this.color = color;
+        this.strokeWeight = settings.general.defaultStrokeWeight;
+        this.strokeColor = settings.general.defaultStrokeColor;
+
         this.lastMovementTime = this.isMoving ? currentSeconds() : 0;
+    }
+
+    get isMoving() {
+        return !this.direction.equals(createVector(0, 0));
     }
 
     get position() {
@@ -16,11 +25,7 @@ class Entity {
         this._position = value;
         this.#constrainPositionInCanvas();
     }
-    get isMoving() {
-        return !this.direction.equals(createVector(0, 0));
-    }
     #constrainPositionInCanvas() {
-        if (this.isMoving) this.lastMovementTime = currentSeconds()
         let constrainedPositionX = constrain(this._position.x, this.#minPositionXInCanvas, this.#maxPositionXInCanvas);
         let constrainedPositionY = constrain(this._position.y, this.#minPositionYInCanvas, this.#maxPositionYInCanvas);
 
@@ -48,13 +53,20 @@ class Entity {
     _onHitHorizontalBorder() { }
 
     update() {
-        let moveAmount = createVector(this.direction.x, this.direction.y).mult(this.speed);
-        this.position = createVector(this.position.x + moveAmount.x, this.position.y + moveAmount.y);
+        this._move();
+        this._show();
     }
 
-    show() {
-        stroke('#64656E');
-        strokeWeight(1);
+    _move() {
+        if (this.isMoving) this.lastMovementTime = currentSeconds()
+
+        let moveAmount = createVector(this.direction.x, this.direction.y).mult(this.speed);
+        this.position = this.position.add(moveAmount);
+    }
+
+    _show() {
+        stroke(this.strokeColor);
+        strokeWeight(this.strokeWeight);
         fill(color(this.color));
         circle(this.position.x, this.position.y, this.diameter)
         noStroke();

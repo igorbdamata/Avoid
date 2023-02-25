@@ -1,50 +1,44 @@
 {
-    "player":
-    {
-        "speed" : 3,
+    "player": {
+        "speed": 3,
         "diameter": 30,
-        "color":"#E6E9FE"
+        "color": "#E6E9FE"
     },
-    "enemy":
-    {
-        "minSpeed" : 3,
-        "maxSpeed" : 6,
+    "enemy": {
+        "minSpeed": 3,
+        "maxSpeed": 6,
         "diameter": 60,
-        "color":"#FF7657"
+        "color": "#FF7657"
     },
-    "general":
-    {
-        "canvasWidth" : 720,
-        "canvasHeight" : 480,
-        "gameplayBackgroundColor":"#1E1F21",
-        "gameOverBackgroundColor":"#992F0F",
-        "titleScreenBackgroundColor":"#992F0F",
+    "general": {
+        "canvasWidth": 720,
+        "canvasHeight": 480,
+        "gameplayBackgroundColor": "#1E1F21",
+        "gameOverBackgroundColor": "#992F0F",
+        "titleScreenBackgroundColor": "#992F0F",
         "maxEnemiesLength": 5,
-        "minEnemySpawnCooldown" : 20,
-        "maxEnemySpawnCooldown" : 25,
-        "maxSecondsOnCorner" : 5
+        "minEnemySpawnCooldown": 20,
+        "maxEnemySpawnCooldown": 25,
+        "maxSecondsOnCorner": 5,
+        "defaultStrokeWeight": 2,
+        "defaultStrokeColor": "#64656E"
     },
-    "difficultCurve":
-    {
-        "point1": 
-        {
-            "x":1,
-            "y":0
+    "difficultCurve": {
+        "point1": {
+            "x": 1,
+            "y": 0
         },
-        "point2": 
-        {
-            "x":0.54,
-            "y":0.15
+        "point2": {
+            "x": 0.54,
+            "y": 0.15
         },
-        "point3": 
-        {
-            "x":0.33,
-            "y":0.93
+        "point3": {
+            "x": 0.33,
+            "y": 0.93
         },
-        "point4": 
-        {
-            "x":0,
-            "y":0.9
+        "point4": {
+            "x": 0,
+            "y": 0.9
         }
     }
 }
