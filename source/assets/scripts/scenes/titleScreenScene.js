@@ -2,7 +2,7 @@ class TitleScreenScene extends Scene {
     init() {
         this.balls = [];
         let speed = random(settings.enemy.minSpeed, settings.enemy.maxSpeed);
-        for (let i = 0; i < settings.general.maxEnemiesLength; i++) {
+        for (let i = 0; i < settings.enemySpawn.maxSpawnLength; i++) {
             let position = createVector(random(0, width), random(0, height));
             this.balls[i] = new BouncingEntity(position, settings.enemy.diameter, speed, settings.enemy.color);
         }

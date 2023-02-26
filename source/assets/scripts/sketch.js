@@ -22,18 +22,22 @@ function currentSeconds() {
 }
 
 function preload() {
-  settings = loadJSON("Assets/General/Settings.json");
+  settings = loadJSON("assets/general/settings.json");
 
-  gameStartSFX = loadSound("Assets/Sounds/gameStart.mp3")
-  ballHitSFX = loadSound("Assets/Sounds/ballHit.mp3")
-  gameOverSFX = loadSound("Assets/Sounds/gameOver.mp3")
+  gameStartSFX = loadSound("assets/sounds/gameStart.mp3")
+  ballHitSFX = loadSound("assets/sounds/ballHit.mp3")
+  gameOverSFX = loadSound("assets/sounds/gameOver.mp3")
 
-  shatellSansFont = loadFont("Assets/General/ShantellSans-Regular.ttf")
+  shatellSansFont = loadFont("assets/general/ShantellSans-Regular.ttf")
 
-  highScore = localStorage.getItem("highScore");
+  let haveHighScore = typeof (localStorage.getItem("highScore")) != 'undefined'
+  if (haveHighScore)
+    highScore = localStorage.getItem("highScore");
 }
 
 function setup() {
+  preventBrowserScroll();
+
   userStartAudio();
 
   createCanvas(settings.canvas.width, settings.canvas.height);
@@ -48,6 +52,15 @@ function setup() {
   canvasCorners["RightUp"] = createVector(width, 0);;
   canvasCorners["RightDown"] = createVector(width, height);;
 }
+function preventBrowserScroll() {
+  window.addEventListener("keydown",
+    function (e) {
+      let isPressingScrollKey = ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1;
+      if (isPressingScrollKey) {
+        e.preventDefault();
+      }
+    });
+}
 
 function draw() {
   currentScene.update();
@@ -56,7 +69,6 @@ function draw() {
 function keyPressed() {
   currentScene.onKeyPressed();
 }
-
 function keyReleased() {
   currentScene.onKeyReleased();
 }
