@@ -1,0 +1,54 @@
+    {
+        "player": {
+            "speed": 3,
+            "diameter": 30,
+            "color": "#E6E9FE"
+        },
+        "enemy": {
+            "minSpeed": 3,
+            "maxSpeed": 6,
+            "diameter": 60,
+            "color": "#FF7657"
+        },
+        "enemySpawn": {
+            "maxSpawnLength": 5,
+            "minCooldown": 20,
+            "maxCooldown": 25
+        },
+        "general": {
+            "backgroundColor": "#1E1F21",
+            "maxSecondsOnCorner": 5,
+            "cornerRadius": 90,
+            "defaultStrokeWeight": 2,
+            "defaultStrokeColor": "#64656E"
+        },
+        "difficultCurve": {
+            "points": [
+                {
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "x": 0.54,
+                    "y": 0.15
+                },
+                {
+                    "x": 0.33,
+                    "y": 0.93
+                },
+                {
+                    "x": 0,
+                    "y": 0.9
+                }
+            ]
+        },
+        "canvas": {
+            "width": 720,
+            "height": 480
+        },
+        "UI": {
+            "titleSize": 64,
+            "subtitleSize": 32,
+            "textSize": 16
+        }
+    }
