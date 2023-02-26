@@ -19,6 +19,7 @@ class GameplayScene extends Scene {
   }
 
   onGameOver() {
+    console.log("gameOver");
     loadScene('GameOver');
     if (currentScore > highScore) {
       highScore = currentScore;
@@ -37,6 +38,7 @@ class GameplayScene extends Scene {
   }
 
   update() {
+    console.log("update");
     background(settings.general.gameplayBackgroundColor);
     this.#updateEnemies();
     this.#updatePlayer();

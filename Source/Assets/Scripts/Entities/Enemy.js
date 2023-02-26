@@ -4,15 +4,17 @@ class Enemy extends BouncingEntity {
         this.player = player;
         this.minSpeed = minSpeed;
         this.maxSpeed = maxSpeed;
+        this.aimingPlayer = false;
     }
 
     update() {
-        this.speed = this.speedFromDifficult;
+        this.speed = this.#speedFromDifficult;
         super.update();
         this.#checkCollisionWithPlayer();
     }
-    get speedFromDifficult() {
-        return (this.maxSpeed - this.minSpeed) * currentScene.getDifficultFactorFromScore() + this.minSpeed;
+
+    get #speedFromDifficult() {
+        return map(currentScene.getDifficultFactorFromScore(), 0, 1, this.minSpeed, this.maxSpeed);
     }
 
     #checkCollisionWithPlayer() {
@@ -20,12 +22,10 @@ class Enemy extends BouncingEntity {
             this.#onCollideWithPlayer();
         }
     }
-
     get #isCollidingWithPlayer() {
         let distance = dist(this.position.x, this.position.y, this.player.position.x, this.player.position.y);
         return distance <= this.radius + this.player.radius;
     }
-
     #onCollideWithPlayer() {
         currentScene.onGameOver();
     }
@@ -33,20 +33,18 @@ class Enemy extends BouncingEntity {
     _onHitHorizontalBorder() {
         super._onHitHorizontalBorder();
         this.#onHitAnyBorder();
-
     }
     _onHitVerticalBorder() {
         super._onHitVerticalBorder();
         this.#onHitAnyBorder();
     }
-
     #onHitAnyBorder() {
         currentScene.addScore();
         if (this.player.isTryingToWinOnCorner && this.#canAimOnPlayer) {
-            this.setDirectionToReachPlayer();
+            this.aimOnPlayer();
         }
-        else if (abs(this.direction.x) != 1) {
-            this.direction = createVector(round(this.direction.x), round(this.direction.y));
+        else if (this.aimingPlayer) {
+            this.setDirectionToDefaultAngle();
         }
     }
 
@@ -55,9 +53,17 @@ class Enemy extends BouncingEntity {
         let pointingVertically = (this.player.position.x < width / 2) == (this.direction.x < 0);
         return pointingHorizontally && pointingVertically;
     }
-    setDirectionToReachPlayer() {
+    aimOnPlayer() {
+        this.#setDirectionToReachPlayer();
+        this.aimingOnPlayer = true;
+    }
+    #setDirectionToReachPlayer() {
         let distance = createVector(this.player.position.x - this.position.x, this.player.position.y - this.position.y);
         let angle = atan2(distance.y, distance.x);
         this.direction = createVector(cos(angle), sin(angle));
+    }
+
+    setDirectionToDefaultAngle() {
+        this.direction = createVector(ceil(this.direction.x), ceil(this.direction.y));
     }
 }

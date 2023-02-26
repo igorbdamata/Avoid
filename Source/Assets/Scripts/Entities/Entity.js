@@ -1,7 +1,7 @@
 class Entity {
     constructor(position, diameter, color, direction, speed) {
         this._position = position;
-        this._direction = direction;
+        this._direction = direction.normalize();
         this.speed = speed;
 
         this.diameter = diameter;
