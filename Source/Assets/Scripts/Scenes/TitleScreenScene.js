@@ -9,7 +9,7 @@ class TitleScreenScene extends Scene {
     }
 
     update() {
-        background(settings.general.gameplayBackgroundColor);
+        background(settings.general.backgroundColor);
 
         for (let i = 0; i < this.balls.length; i++) {
             this.balls[i].update();
@@ -21,29 +21,25 @@ class TitleScreenScene extends Scene {
         this.#displayHighScoreText();
     }
     #displayGameTitleText() {
-        let size = 64;
         let textToDisplay = 'Avoid!';
         let textPosition = createVector(width / 2, height / 2);
-        displayText(textToDisplay, textPosition, size, CENTER);
+        displayText(textToDisplay, textPosition, settings.UI.titleSize, CENTER);
     }
     #displayPressAnyKeyText() {
-        let size = 32;
         let textToDisplay = 'Press any key to start!';
         let position = createVector(width / 2, height / 2 + 100);
-        displayText(textToDisplay, position, size, CENTER);
+        displayText(textToDisplay, position, settings.UI.subtitleSize, CENTER);
     }
 
     #displayKeysText() {
-        let size = 32;
         let textToDisplay = "Arrows to move"
-        let textPosition = createVector(20, 20 + size);
-        displayText(textToDisplay, textPosition, size)
+        let textPosition = createVector(20, 20 + settings.UI.subtitleSize);
+        displayText(textToDisplay, textPosition, settings.UI.subtitleSize)
     }
     #displayHighScoreText() {
-        let size = 32;
         let textToDisplay = "High score: " + highScore;
-        let textPosition = createVector(20, 20 * 2 + size * 2);
-        displayText(textToDisplay, textPosition, size)
+        let textPosition = createVector(20, 20 * 2 + settings.UI.subtitleSize * 2);
+        displayText(textToDisplay, textPosition, settings.UI.subtitleSize)
     }
 
     onKeyPressed() {

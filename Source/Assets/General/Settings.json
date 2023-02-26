@@ -13,9 +13,7 @@
     "general": {
         "canvasWidth": 720,
         "canvasHeight": 480,
-        "gameplayBackgroundColor": "#1E1F21",
-        "gameOverBackgroundColor": "#992F0F",
-        "titleScreenBackgroundColor": "#992F0F",
+        "backgroundColor": "#1E1F21",
         "maxEnemiesLength": 5,
         "minEnemySpawnCooldown": 20,
         "maxEnemySpawnCooldown": 25,
@@ -41,5 +39,11 @@
             "x": 0,
             "y": 0.9
         }
+    },
+    "UI":
+    {
+        "titleSize" : 64,
+        "subtitleSize" : 32,
+        "textSize" : 16
     }
 }

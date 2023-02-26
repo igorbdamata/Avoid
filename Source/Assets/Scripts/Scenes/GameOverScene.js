@@ -4,29 +4,26 @@ class GameOverScene extends Scene {
     }
 
     update() {
-        background(settings.general.gameplayBackgroundColor);
+        background(settings.general.backgroundColor);
         this.#displayGameOverText();
         this.#displayPressAnyKeyText();
         this.#displayScoreAndHighScoreText();
     }
     #displayGameOverText() {
-        let size = 64;
         let textToDisplay = 'Game Over!';
         let textPosition = createVector(width / 2, height / 2);
-        displayText(textToDisplay, textPosition, size, CENTER)
+        displayText(textToDisplay, textPosition, settings.UI.titleSize, CENTER)
     }
     #displayPressAnyKeyText() {
-        let size = 32;
         let textToDisplay = 'Press any key!';
         let textPosition = createVector(width / 2, height / 2 + 100);
-        displayText(textToDisplay, textPosition, size, CENTER)
+        displayText(textToDisplay, textPosition, settings.UI.subtitleSize, CENTER)
     }
 
     #displayScoreAndHighScoreText() {
-        let size = 30;
         let textToDisplay = "High score: " + highScore + '\nScore: ' + currentScore;
-        let textPosition = createVector(20, 20 + size);
-        displayText(textToDisplay, textPosition, size)
+        let textPosition = createVector(20, 20 + settings.UI.subtitleSize);
+        displayText(textToDisplay, textPosition, settings.UI.subtitleSize)
     }
 
     onKeyPressed() {

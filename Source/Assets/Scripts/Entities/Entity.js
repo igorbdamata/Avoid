@@ -15,15 +15,13 @@ class Entity {
     }
 
     get isMoving() {
-        return !this.direction.equals(createVector(0,0));
+        return !this.direction.equals(createVector(0, 0));
     }
 
-    get direction()
-    {
+    get direction() {
         return this._direction;
     }
-    set direction(value)
-    {
+    set direction(value) {
         this._direction = value;
         this._direction.normalize();
     }

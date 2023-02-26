@@ -7,7 +7,7 @@ let shatellSansFont;
 let currentScore;
 let highScore = 0;
 
-let canvasCorners ={};
+let canvasCorners = {};
 
 function displayText(textToDiplay, position, size, aligment = LEFT, font = shatellSansFont, color = '#E6E9FE') {
   textSize(size);
@@ -38,16 +38,16 @@ function setup() {
 
   let canvasSize = createVector(settings.general.canvasWidth, settings.general.canvasHeight);
   createCanvas(canvasSize.x, canvasSize.y);
-  
+
   addScene('TitleScreen', new TitleScreenScene());
   addScene('Gameplay', new GameplayScene());
   addScene('GameOver', new GameOverScene());
   loadScene('TitleScreen');
 
-  canvasCorners["LeftUp"] = createVector(0,0);
-  canvasCorners["LeftDown"] = createVector(0,height);;
-  canvasCorners["RightUp"] = createVector(width,0);;
-  canvasCorners["RightDown"] = createVector(width,height);;
+  canvasCorners["LeftUp"] = createVector(0, 0);
+  canvasCorners["LeftDown"] = createVector(0, height);;
+  canvasCorners["RightUp"] = createVector(width, 0);;
+  canvasCorners["RightDown"] = createVector(width, height);;
 }
 
 function draw() {

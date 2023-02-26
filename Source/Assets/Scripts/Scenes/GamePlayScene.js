@@ -18,15 +18,6 @@ class GameplayScene extends Scene {
     currentScore += int(random(1, 11));
   }
 
-  onGameOver() {
-    console.log("gameOver");
-    loadScene('GameOver');
-    if (currentScore > highScore) {
-      highScore = currentScore;
-      localStorage.setItem("highScore", highScore);
-    }
-  }
-
   getDifficultFactorFromScore() {
     if (currentSceneKey != "Gameplay") return 0;
     let timeWithMaxDifficult = (settings.general.maxEnemiesLength + 1) * settings.general.maxEnemySpawnCooldown;
@@ -37,18 +28,24 @@ class GameplayScene extends Scene {
     return difficult;
   }
 
+  onGameOver() {
+    console.log("gameOver");
+    loadScene('GameOver');
+    if (currentScore > highScore) {
+      highScore = currentScore;
+      localStorage.setItem("highScore", highScore);
+    }
+  }
+
   update() {
     console.log("update");
-    background(settings.general.gameplayBackgroundColor);
+    background(settings.general.backgroundColor);
     this.#updateEnemies();
-    this.#updatePlayer();
+    this.player.update();
 
-    if (this.#stillHaveEnemiesToSpawn && this.#isTimeToSpawnANewEnemy) {
-      this.spawnEnemy();
-    }
+    this.#checkEnemySpawn();
 
-    let size = 30;
-    displayText('Score: ' + currentScore, createVector(20, size + 20), size)
+    displayText('Score: ' + currentScore, createVector(20, settings.UI.subtitleSize + 20), settings.UI.subtitleSize);
   }
 
   #updateEnemies() {
@@ -57,18 +54,18 @@ class GameplayScene extends Scene {
     });
   }
 
-  #updatePlayer() {
-    this.player.update();
+  #checkEnemySpawn() {
+    if (this.#stillHaveEnemiesToSpawn && this.#isTimeToSpawnANewEnemy) {
+      this.spawnEnemy();
+    }
   }
 
   get #stillHaveEnemiesToSpawn() {
     return this.enemies.length < settings.general.maxEnemiesLength;
   }
   get #isTimeToSpawnANewEnemy() {
-    return this.currentTimeInterval >= this.intervalToSpawnEnemy;
-  }
-  get currentTimeInterval() {
-    return currentSeconds() - this.timeOnLastSpawn;
+    let currentSpawnInterval = currentSeconds() - this.timeOnLastSpawn;
+    return this.currentSpawnInterval >= this.intervalToSpawnEnemy;
   }
 
   spawnEnemy() {

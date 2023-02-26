@@ -1,6 +1,5 @@
-class BouncingEntity extends Entity
-{
-     constructor(position, diameter, speed, color) {
+class BouncingEntity extends Entity {
+    constructor(position, diameter, speed, color) {
         let directionX = random(11) > 5 ? 1 : -1;
         let directionY = random(11) > 5 ? 1 : -1;
         let direction = createVector(directionX, directionY);
