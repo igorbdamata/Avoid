@@ -1,4 +1,4 @@
-let currentSceneKey = '';
+let currentSceneKey = "";
 let currentScene;
 let scenes = {};
 

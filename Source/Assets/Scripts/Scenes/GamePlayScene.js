@@ -7,11 +7,13 @@ class GameplayScene extends Scene {
 
     this.timeOnLastSpawn = currentSeconds();
     this.gameplayStartTime = currentSeconds();
-    this.intervalToSpawnEnemy = random(settings.general.minEnemySpawnCooldown, settings.general.maxEnemySpawnCooldown)
+    this.#setEnemySpawnInterval();
     currentScore = 0;
 
     this.enemies = [];
     this.spawnEnemy();
+
+    this.gameIsOver = false;
   }
 
   addScore() {
@@ -19,18 +21,20 @@ class GameplayScene extends Scene {
   }
 
   getDifficultFactorFromScore() {
-    if (currentSceneKey != "Gameplay") return 0;
-    let timeWithMaxDifficult = (settings.general.maxEnemiesLength + 1) * settings.general.maxEnemySpawnCooldown;
+    let timeWithMaxDifficult = (settings.enemySpawn.maxSpawnLength + 1) * settings.enemySpawn.maxCooldown;
     let t = (currentSeconds() - currentScene.gameplayStartTime) / timeWithMaxDifficult;
     let curve = settings.difficultCurve;
-    let difficult = bezierPoint(curve.point1.y, curve.point2.y, curve.point3.y, curve.point4.y, t);
+    let difficult = bezierPoint(curve.points[0].y, curve.points[1].y, curve.points[2].y, curve.points[3].y, t);
 
     return difficult;
   }
 
   onGameOver() {
-    console.log("gameOver");
-    loadScene('GameOver');
+    this.#checkHighScore();
+    loadScene("GameOver");
+    this.gameIsOver = true;
+  }
+  #checkHighScore() {
     if (currentScore > highScore) {
       highScore = currentScore;
       localStorage.setItem("highScore", highScore);
@@ -38,20 +42,22 @@ class GameplayScene extends Scene {
   }
 
   update() {
-    console.log("update");
     background(settings.general.backgroundColor);
     this.#updateEnemies();
     this.player.update();
 
     this.#checkEnemySpawn();
 
-    displayText('Score: ' + currentScore, createVector(20, settings.UI.subtitleSize + 20), settings.UI.subtitleSize);
+    displayText("Score: " + currentScore, createVector(20, settings.UI.subtitleSize + 20), settings.UI.subtitleSize);
   }
 
   #updateEnemies() {
-    this.enemies.forEach(element => {
-      element.update();
-    });
+    for (let i = 0; i < this.enemies.length; i++) {
+      this.enemies[i].update();
+      if (this.gameIsOver) {
+        break;
+      }
+    }
   }
 
   #checkEnemySpawn() {
@@ -61,17 +67,17 @@ class GameplayScene extends Scene {
   }
 
   get #stillHaveEnemiesToSpawn() {
-    return this.enemies.length < settings.general.maxEnemiesLength;
+    return this.enemies.length < settings.enemySpawn.maxSpawnLength;
   }
   get #isTimeToSpawnANewEnemy() {
     let currentSpawnInterval = currentSeconds() - this.timeOnLastSpawn;
-    return this.currentSpawnInterval >= this.intervalToSpawnEnemy;
+    return currentSpawnInterval >= this.intervalToSpawnEnemy;
   }
 
   spawnEnemy() {
     this.timeOnLastSpawn = currentSeconds();
-    this.intervalToSpawnEnemy = random(settings.general.minEnemySpawnCooldown, settings.general.maxEnemySpawnCooldown);
-    let enemy = new Enemy(this.#getPositionForNewEnemy(), settings.enemy.diameter, settings.enemy.minSpeed, settings.enemy.maxSpeed, this.player, settings.enemy.color);
+    this.#setEnemySpawnInterval();
+    let enemy = new Enemy(this.#getPositionForNewEnemy(), this.player);
     this.enemies.push(enemy);
   }
   #getPositionForNewEnemy() {
@@ -79,6 +85,10 @@ class GameplayScene extends Scene {
     let posX = this.player.position.x < width / 2 ? width - diameter : diameter;
     let posY = this.player.position.y < height / 2 ? diameter : height - diameter;
     return createVector(posX, posY);
+  }
+
+  #setEnemySpawnInterval() {
+    this.intervalToSpawnEnemy = random(settings.enemySpawn.minCooldown, settings.enemySpawn.maxCooldown);
   }
 
   onKeyPressed() {

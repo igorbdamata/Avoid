@@ -9,7 +9,7 @@ let highScore = 0;
 
 let canvasCorners = {};
 
-function displayText(textToDiplay, position, size, aligment = LEFT, font = shatellSansFont, color = '#E6E9FE') {
+function displayText(textToDiplay, position, size, aligment = LEFT, font = shatellSansFont, color = "#E6E9FE") {
   textSize(size);
   textAlign(aligment);
   textFont(font);
@@ -36,13 +36,12 @@ function preload() {
 function setup() {
   userStartAudio();
 
-  let canvasSize = createVector(settings.general.canvasWidth, settings.general.canvasHeight);
-  createCanvas(canvasSize.x, canvasSize.y);
+  createCanvas(settings.canvas.width, settings.canvas.height);
 
-  addScene('TitleScreen', new TitleScreenScene());
-  addScene('Gameplay', new GameplayScene());
-  addScene('GameOver', new GameOverScene());
-  loadScene('TitleScreen');
+  addScene("TitleScreen", new TitleScreenScene());
+  addScene("Gameplay", new GameplayScene());
+  addScene("GameOver", new GameOverScene());
+  loadScene("TitleScreen");
 
   canvasCorners["LeftUp"] = createVector(0, 0);
   canvasCorners["LeftDown"] = createVector(0, height);;

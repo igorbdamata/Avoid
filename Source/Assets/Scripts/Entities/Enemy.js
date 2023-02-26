@@ -1,9 +1,9 @@
 class Enemy extends BouncingEntity {
-    constructor(position, diameter, minSpeed, maxSpeed, player, color) {
-        super(position, diameter, 0, color);
+    constructor(position, player) {
+        super(position, settings.enemy.diameter, 0, settings.enemy.color);
         this.player = player;
-        this.minSpeed = minSpeed;
-        this.maxSpeed = maxSpeed;
+        this.minSpeed = settings.enemy.minSpeed;
+        this.maxSpeed = settings.enemy.maxSpeed;
         this.aimingPlayer = false;
     }
 

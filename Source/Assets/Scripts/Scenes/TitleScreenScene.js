@@ -21,12 +21,12 @@ class TitleScreenScene extends Scene {
         this.#displayHighScoreText();
     }
     #displayGameTitleText() {
-        let textToDisplay = 'Avoid!';
+        let textToDisplay = "Avoid!";
         let textPosition = createVector(width / 2, height / 2);
         displayText(textToDisplay, textPosition, settings.UI.titleSize, CENTER);
     }
     #displayPressAnyKeyText() {
-        let textToDisplay = 'Press any key to start!';
+        let textToDisplay = "Press any key to start!";
         let position = createVector(width / 2, height / 2 + 100);
         displayText(textToDisplay, position, settings.UI.subtitleSize, CENTER);
     }
