@@ -11,7 +11,7 @@
 <br>
 
 <h3 align="left">Tools used to develop the game</h3>
-<h4>	This game was made using Javascript and the <a href="https://p5js.org/">p5.js</a> library. I've decided to use Javascript for learning purposes, and the p5.js because i thought (and think) that this is a pretty easy and usefull tool, making the development faster and more fun.</h4>
+<h4>	This game was made using Javascript and the <a href="https://p5js.org/">p5.js</a> library. I've decided to use Javascript for learning purposes, and the p5.js because i thought (and think) that this is a pretty easy and useful tool, making the development faster and more fun.</h4>
 
 <br>
 
