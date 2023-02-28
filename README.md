@@ -2,12 +2,12 @@
 
 <h3 align="left">About the game</h3>
 <h4>	The gameplay is quite simple. You are the white circle and you must avoid the orange circles to survive. When an orange circle hits the edge of the screen, you get some score points. Seek the highest score possible!</h4>
-
+<img src= "https://github.com/igorbdamata/Avoid/blob/main/readmeFiles/gif1.gif">
 <br>
 
 <h3 align="left">How to play the game</h3>
 <h4>	You can play the game on itch.io page. The game is available for free. Link for itch.io game's page: [LINK]</h4>
-
+<img src= "https://github.com/igorbdamata/Avoid/blob/main/readmeFiles/gif3.gif">
 <br>
 
 <h3 align="left">Tools used to develop the game</h3>
