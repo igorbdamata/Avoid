@@ -6,7 +6,7 @@
 <br>
 
 <h3 align="left">How to play the game</h3>
-<h4>	You can play the game on <a href="https://itch.io/">itch.io</a> for free. The link for game's page: https://igorbdamata.itch.io/avoid</h4>
+<h4>	You can play the game on <a href="https://itch.io/">itch.io</a> for free. The link for game's page is: https://igorbdamata.itch.io/avoid</h4>
 <img src= "https://github.com/igorbdamata/Avoid/blob/main/readmeFiles/gif3.gif">
 <br>
 
